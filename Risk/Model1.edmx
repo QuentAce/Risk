@@ -1,0 +1,705 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Risk_Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Joueur">
+          <Key>
+            <PropertyRef Name="id_joueur" />
+          </Key>
+          <Property Name="id_joueur" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pseudo_joueur" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="nbrpartiesjoues_joueur" Type="int" />
+          <Property Name="nbrpartiesgagnes_joueur" Type="int" />
+          <Property Name="nbrpartiesperdues_joueur" Type="int" />
+          <Property Name="joueur_toUtilisateur" Type="int" />
+        </EntityType>
+        <EntityType Name="Joueur_has_Partie">
+          <Key>
+            <PropertyRef Name="id_joueur" />
+            <PropertyRef Name="id_partie" />
+          </Key>
+          <Property Name="id_joueur" Type="int" Nullable="false" />
+          <Property Name="id_partie" Type="int" Nullable="false" />
+          <Property Name="JhP_flag" Type="int" />
+          <Property Name="JhP_ordre_de_jeu" Type="int" />
+        </EntityType>
+        <EntityType Name="Monde">
+          <Key>
+            <PropertyRef Name="id_monde" />
+          </Key>
+          <Property Name="id_monde" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="monde_topartie" Type="int" />
+        </EntityType>
+        <EntityType Name="Partie">
+          <Key>
+            <PropertyRef Name="id_partie" />
+          </Key>
+          <Property Name="id_partie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_partie" Type="varchar" MaxLength="50" />
+          <Property Name="phase_partie" Type="int" />
+          <Property Name="partie_toJ1" Type="int" />
+          <Property Name="partie_toJ2" Type="int" />
+        </EntityType>
+        <EntityType Name="Territoire">
+          <Key>
+            <PropertyRef Name="id_territoire" />
+          </Key>
+          <Property Name="id_territoire" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_territoire" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="Type_zone">
+          <Key>
+            <PropertyRef Name="id_typezone" />
+          </Key>
+          <Property Name="id_typezone" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Unite">
+          <Key>
+            <PropertyRef Name="id_unite" />
+          </Key>
+          <Property Name="id_unite" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_unite" Type="varchar" MaxLength="25" />
+          <Property Name="position_unite" Type="int" />
+          <Property Name="joueur_unite" Type="int" />
+        </EntityType>
+        <EntityType Name="Utilisateur">
+          <Key>
+            <PropertyRef Name="id_utilisateur" />
+          </Key>
+          <Property Name="id_utilisateur" Type="int" Nullable="false" />
+          <Property Name="nom_utilisateur" Type="varchar" MaxLength="50" />
+          <Property Name="prenom_utilisateur" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Zone">
+          <Key>
+            <PropertyRef Name="id_zone" />
+          </Key>
+          <Property Name="id_zone" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_zone" Type="varchar" MaxLength="25" />
+          <Property Name="coordonneesX_zone" Type="int" />
+          <Property Name="coordonneesY_zone" Type="int" />
+          <Property Name="zone_toMonde" Type="int" />
+        </EntityType>
+        <EntityType Name="Zone_Contact">
+          <Key>
+            <PropertyRef Name="id_zone_1" />
+            <PropertyRef Name="id_zone_2" />
+          </Key>
+          <Property Name="id_zone_1" Type="int" Nullable="false" />
+          <Property Name="id_zone_2" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="JhP_toJoueur">
+          <End Role="Joueur" Type="Self.Joueur" Multiplicity="1" />
+          <End Role="Joueur_has_Partie" Type="Self.Joueur_has_Partie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Joueur">
+              <PropertyRef Name="id_joueur" />
+            </Principal>
+            <Dependent Role="Joueur_has_Partie">
+              <PropertyRef Name="id_joueur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="JhP_toPartie">
+          <End Role="Partie" Type="Self.Partie" Multiplicity="1" />
+          <End Role="Joueur_has_Partie" Type="Self.Joueur_has_Partie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partie">
+              <PropertyRef Name="id_partie" />
+            </Principal>
+            <Dependent Role="Joueur_has_Partie">
+              <PropertyRef Name="id_partie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="JhPFlag_toJoueur">
+          <End Role="Joueur" Type="Self.Joueur" Multiplicity="0..1" />
+          <End Role="Joueur_has_Partie" Type="Self.Joueur_has_Partie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Joueur">
+              <PropertyRef Name="id_joueur" />
+            </Principal>
+            <Dependent Role="Joueur_has_Partie">
+              <PropertyRef Name="JhP_flag" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="JtU">
+          <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="0..1" />
+          <End Role="Joueur" Type="Self.Joueur" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="id_utilisateur" />
+            </Principal>
+            <Dependent Role="Joueur">
+              <PropertyRef Name="joueur_toUtilisateur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Monde_toPartie">
+          <End Role="Partie" Type="Self.Partie" Multiplicity="0..1" />
+          <End Role="Monde" Type="Self.Monde" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partie">
+              <PropertyRef Name="id_partie" />
+            </Principal>
+            <Dependent Role="Monde">
+              <PropertyRef Name="monde_topartie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="P_toJ1">
+          <End Role="Joueur" Type="Self.Joueur" Multiplicity="0..1" />
+          <End Role="Partie" Type="Self.Partie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Joueur">
+              <PropertyRef Name="id_joueur" />
+            </Principal>
+            <Dependent Role="Partie">
+              <PropertyRef Name="partie_toJ1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="P_toJ2">
+          <End Role="Joueur" Type="Self.Joueur" Multiplicity="0..1" />
+          <End Role="Partie" Type="Self.Partie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Joueur">
+              <PropertyRef Name="id_joueur" />
+            </Principal>
+            <Dependent Role="Partie">
+              <PropertyRef Name="partie_toJ2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="unite_toJoueur">
+          <End Role="Joueur" Type="Self.Joueur" Multiplicity="0..1" />
+          <End Role="Unite" Type="Self.Unite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Joueur">
+              <PropertyRef Name="id_joueur" />
+            </Principal>
+            <Dependent Role="Unite">
+              <PropertyRef Name="joueur_unite" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="unite_toZone">
+          <End Role="Zone" Type="Self.Zone" Multiplicity="0..1" />
+          <End Role="Unite" Type="Self.Unite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zone">
+              <PropertyRef Name="id_zone" />
+            </Principal>
+            <Dependent Role="Unite">
+              <PropertyRef Name="position_unite" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Zone_Contact1">
+          <End Role="Zone" Type="Self.Zone" Multiplicity="1" />
+          <End Role="Zone_Contact" Type="Self.Zone_Contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zone">
+              <PropertyRef Name="id_zone" />
+            </Principal>
+            <Dependent Role="Zone_Contact">
+              <PropertyRef Name="id_zone_1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Zone_Contact2">
+          <End Role="Zone" Type="Self.Zone" Multiplicity="1" />
+          <End Role="Zone_Contact" Type="Self.Zone_Contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zone">
+              <PropertyRef Name="id_zone" />
+            </Principal>
+            <Dependent Role="Zone_Contact">
+              <PropertyRef Name="id_zone_2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Zone_ToMonde">
+          <End Role="Monde" Type="Self.Monde" Multiplicity="0..1" />
+          <End Role="Zone" Type="Self.Zone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Monde">
+              <PropertyRef Name="id_monde" />
+            </Principal>
+            <Dependent Role="Zone">
+              <PropertyRef Name="zone_toMonde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Risk_ModelStoreContainer">
+          <EntitySet Name="Joueur" EntityType="Self.Joueur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Joueur_has_Partie" EntityType="Self.Joueur_has_Partie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Monde" EntityType="Self.Monde" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Partie" EntityType="Self.Partie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Territoire" EntityType="Self.Territoire" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type_zone" EntityType="Self.Type_zone" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Unite" EntityType="Self.Unite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Utilisateur" EntityType="Self.Utilisateur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zone" EntityType="Self.Zone" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zone_Contact" EntityType="Self.Zone_Contact" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="JhP_toJoueur" Association="Self.JhP_toJoueur">
+            <End Role="Joueur" EntitySet="Joueur" />
+            <End Role="Joueur_has_Partie" EntitySet="Joueur_has_Partie" />
+          </AssociationSet>
+          <AssociationSet Name="JhP_toPartie" Association="Self.JhP_toPartie">
+            <End Role="Partie" EntitySet="Partie" />
+            <End Role="Joueur_has_Partie" EntitySet="Joueur_has_Partie" />
+          </AssociationSet>
+          <AssociationSet Name="JhPFlag_toJoueur" Association="Self.JhPFlag_toJoueur">
+            <End Role="Joueur" EntitySet="Joueur" />
+            <End Role="Joueur_has_Partie" EntitySet="Joueur_has_Partie" />
+          </AssociationSet>
+          <AssociationSet Name="JtU" Association="Self.JtU">
+            <End Role="Utilisateur" EntitySet="Utilisateur" />
+            <End Role="Joueur" EntitySet="Joueur" />
+          </AssociationSet>
+          <AssociationSet Name="Monde_toPartie" Association="Self.Monde_toPartie">
+            <End Role="Partie" EntitySet="Partie" />
+            <End Role="Monde" EntitySet="Monde" />
+          </AssociationSet>
+          <AssociationSet Name="P_toJ1" Association="Self.P_toJ1">
+            <End Role="Joueur" EntitySet="Joueur" />
+            <End Role="Partie" EntitySet="Partie" />
+          </AssociationSet>
+          <AssociationSet Name="P_toJ2" Association="Self.P_toJ2">
+            <End Role="Joueur" EntitySet="Joueur" />
+            <End Role="Partie" EntitySet="Partie" />
+          </AssociationSet>
+          <AssociationSet Name="unite_toJoueur" Association="Self.unite_toJoueur">
+            <End Role="Joueur" EntitySet="Joueur" />
+            <End Role="Unite" EntitySet="Unite" />
+          </AssociationSet>
+          <AssociationSet Name="unite_toZone" Association="Self.unite_toZone">
+            <End Role="Zone" EntitySet="Zone" />
+            <End Role="Unite" EntitySet="Unite" />
+          </AssociationSet>
+          <AssociationSet Name="Zone_Contact1" Association="Self.Zone_Contact1">
+            <End Role="Zone" EntitySet="Zone" />
+            <End Role="Zone_Contact" EntitySet="Zone_Contact" />
+          </AssociationSet>
+          <AssociationSet Name="Zone_Contact2" Association="Self.Zone_Contact2">
+            <End Role="Zone" EntitySet="Zone" />
+            <End Role="Zone_Contact" EntitySet="Zone_Contact" />
+          </AssociationSet>
+          <AssociationSet Name="Zone_ToMonde" Association="Self.Zone_ToMonde">
+            <End Role="Monde" EntitySet="Monde" />
+            <End Role="Zone" EntitySet="Zone" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Risk_Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Joueur">
+          <Key>
+            <PropertyRef Name="id_joueur" />
+          </Key>
+          <Property Name="id_joueur" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pseudo_joueur" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nbrpartiesjoues_joueur" Type="Int32" />
+          <Property Name="nbrpartiesgagnes_joueur" Type="Int32" />
+          <Property Name="nbrpartiesperdues_joueur" Type="Int32" />
+          <Property Name="joueur_toUtilisateur" Type="Int32" />
+          <NavigationProperty Name="Joueur_has_Partie" Relationship="Self.JhP_toJoueur" FromRole="Joueur" ToRole="Joueur_has_Partie" />
+          <NavigationProperty Name="Joueur_has_Partie1" Relationship="Self.JhPFlag_toJoueur" FromRole="Joueur" ToRole="Joueur_has_Partie" />
+          <NavigationProperty Name="Utilisateur" Relationship="Self.JtU" FromRole="Joueur" ToRole="Utilisateur" />
+          <NavigationProperty Name="Partie" Relationship="Self.P_toJ1" FromRole="Joueur" ToRole="Partie" />
+          <NavigationProperty Name="Partie1" Relationship="Self.P_toJ2" FromRole="Joueur" ToRole="Partie" />
+          <NavigationProperty Name="Unite" Relationship="Self.unite_toJoueur" FromRole="Joueur" ToRole="Unite" />
+        </EntityType>
+        <EntityType Name="Joueur_has_Partie">
+          <Key>
+            <PropertyRef Name="id_joueur" />
+            <PropertyRef Name="id_partie" />
+          </Key>
+          <Property Name="id_joueur" Type="Int32" Nullable="false" />
+          <Property Name="id_partie" Type="Int32" Nullable="false" />
+          <Property Name="JhP_flag" Type="Int32" />
+          <Property Name="JhP_ordre_de_jeu" Type="Int32" />
+          <NavigationProperty Name="Joueur" Relationship="Self.JhP_toJoueur" FromRole="Joueur_has_Partie" ToRole="Joueur" />
+          <NavigationProperty Name="Joueur1" Relationship="Self.JhPFlag_toJoueur" FromRole="Joueur_has_Partie" ToRole="Joueur" />
+          <NavigationProperty Name="Partie" Relationship="Self.JhP_toPartie" FromRole="Joueur_has_Partie" ToRole="Partie" />
+        </EntityType>
+        <EntityType Name="Monde">
+          <Key>
+            <PropertyRef Name="id_monde" />
+          </Key>
+          <Property Name="id_monde" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="monde_topartie" Type="Int32" />
+          <NavigationProperty Name="Partie" Relationship="Self.Monde_toPartie" FromRole="Monde" ToRole="Partie" />
+          <NavigationProperty Name="Zone" Relationship="Self.Zone_ToMonde" FromRole="Monde" ToRole="Zone" />
+        </EntityType>
+        <EntityType Name="Partie">
+          <Key>
+            <PropertyRef Name="id_partie" />
+          </Key>
+          <Property Name="id_partie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_partie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="phase_partie" Type="Int32" />
+          <Property Name="partie_toJ1" Type="Int32" />
+          <Property Name="partie_toJ2" Type="Int32" />
+          <NavigationProperty Name="Joueur" Relationship="Self.P_toJ1" FromRole="Partie" ToRole="Joueur" />
+          <NavigationProperty Name="Joueur1" Relationship="Self.P_toJ2" FromRole="Partie" ToRole="Joueur" />
+          <NavigationProperty Name="Joueur_has_Partie" Relationship="Self.JhP_toPartie" FromRole="Partie" ToRole="Joueur_has_Partie" />
+          <NavigationProperty Name="Monde" Relationship="Self.Monde_toPartie" FromRole="Partie" ToRole="Monde" />
+        </EntityType>
+        <EntityType Name="Territoire">
+          <Key>
+            <PropertyRef Name="id_territoire" />
+          </Key>
+          <Property Name="id_territoire" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_territoire" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Type_zone">
+          <Key>
+            <PropertyRef Name="id_typezone" />
+          </Key>
+          <Property Name="id_typezone" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Unite">
+          <Key>
+            <PropertyRef Name="id_unite" />
+          </Key>
+          <Property Name="id_unite" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_unite" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="position_unite" Type="Int32" />
+          <Property Name="joueur_unite" Type="Int32" />
+          <NavigationProperty Name="Joueur" Relationship="Self.unite_toJoueur" FromRole="Unite" ToRole="Joueur" />
+          <NavigationProperty Name="Zone" Relationship="Self.unite_toZone" FromRole="Unite" ToRole="Zone" />
+        </EntityType>
+        <EntityType Name="Utilisateur">
+          <Key>
+            <PropertyRef Name="id_utilisateur" />
+          </Key>
+          <Property Name="id_utilisateur" Type="Int32" Nullable="false" />
+          <Property Name="nom_utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="prenom_utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Joueur" Relationship="Self.JtU" FromRole="Utilisateur" ToRole="Joueur" />
+        </EntityType>
+        <EntityType Name="Zone">
+          <Key>
+            <PropertyRef Name="id_zone" />
+          </Key>
+          <Property Name="id_zone" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_zone" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="coordonneesX_zone" Type="Int32" />
+          <Property Name="coordonneesY_zone" Type="Int32" />
+          <Property Name="zone_toMonde" Type="Int32" />
+          <NavigationProperty Name="Monde" Relationship="Self.Zone_ToMonde" FromRole="Zone" ToRole="Monde" />
+          <NavigationProperty Name="Unite" Relationship="Self.unite_toZone" FromRole="Zone" ToRole="Unite" />
+          <NavigationProperty Name="Zone1" Relationship="Self.Zone_Contact" FromRole="Zone" ToRole="Zone1" />
+          <NavigationProperty Name="Zone2" Relationship="Self.Zone_Contact" FromRole="Zone1" ToRole="Zone" />
+        </EntityType>
+        <Association Name="JhP_toJoueur">
+          <End Role="Joueur" Type="Self.Joueur" Multiplicity="1" />
+          <End Role="Joueur_has_Partie" Type="Self.Joueur_has_Partie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Joueur">
+              <PropertyRef Name="id_joueur" />
+            </Principal>
+            <Dependent Role="Joueur_has_Partie">
+              <PropertyRef Name="id_joueur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="JhPFlag_toJoueur">
+          <End Role="Joueur" Type="Self.Joueur" Multiplicity="0..1" />
+          <End Role="Joueur_has_Partie" Type="Self.Joueur_has_Partie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Joueur">
+              <PropertyRef Name="id_joueur" />
+            </Principal>
+            <Dependent Role="Joueur_has_Partie">
+              <PropertyRef Name="JhP_flag" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="JtU">
+          <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="0..1" />
+          <End Role="Joueur" Type="Self.Joueur" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="id_utilisateur" />
+            </Principal>
+            <Dependent Role="Joueur">
+              <PropertyRef Name="joueur_toUtilisateur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="P_toJ1">
+          <End Role="Joueur" Type="Self.Joueur" Multiplicity="0..1" />
+          <End Role="Partie" Type="Self.Partie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Joueur">
+              <PropertyRef Name="id_joueur" />
+            </Principal>
+            <Dependent Role="Partie">
+              <PropertyRef Name="partie_toJ1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="P_toJ2">
+          <End Role="Joueur" Type="Self.Joueur" Multiplicity="0..1" />
+          <End Role="Partie" Type="Self.Partie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Joueur">
+              <PropertyRef Name="id_joueur" />
+            </Principal>
+            <Dependent Role="Partie">
+              <PropertyRef Name="partie_toJ2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="unite_toJoueur">
+          <End Role="Joueur" Type="Self.Joueur" Multiplicity="0..1" />
+          <End Role="Unite" Type="Self.Unite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Joueur">
+              <PropertyRef Name="id_joueur" />
+            </Principal>
+            <Dependent Role="Unite">
+              <PropertyRef Name="joueur_unite" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="JhP_toPartie">
+          <End Role="Partie" Type="Self.Partie" Multiplicity="1" />
+          <End Role="Joueur_has_Partie" Type="Self.Joueur_has_Partie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partie">
+              <PropertyRef Name="id_partie" />
+            </Principal>
+            <Dependent Role="Joueur_has_Partie">
+              <PropertyRef Name="id_partie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Monde_toPartie">
+          <End Role="Partie" Type="Self.Partie" Multiplicity="0..1" />
+          <End Role="Monde" Type="Self.Monde" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partie">
+              <PropertyRef Name="id_partie" />
+            </Principal>
+            <Dependent Role="Monde">
+              <PropertyRef Name="monde_topartie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Zone_ToMonde">
+          <End Role="Monde" Type="Self.Monde" Multiplicity="0..1" />
+          <End Role="Zone" Type="Self.Zone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Monde">
+              <PropertyRef Name="id_monde" />
+            </Principal>
+            <Dependent Role="Zone">
+              <PropertyRef Name="zone_toMonde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="unite_toZone">
+          <End Role="Zone" Type="Self.Zone" Multiplicity="0..1" />
+          <End Role="Unite" Type="Self.Unite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zone">
+              <PropertyRef Name="id_zone" />
+            </Principal>
+            <Dependent Role="Unite">
+              <PropertyRef Name="position_unite" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Zone_Contact">
+          <End Role="Zone" Type="Self.Zone" Multiplicity="*" />
+          <End Role="Zone1" Type="Self.Zone" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="thomasEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Joueur" EntityType="Self.Joueur" />
+          <EntitySet Name="Joueur_has_Partie" EntityType="Self.Joueur_has_Partie" />
+          <EntitySet Name="Monde" EntityType="Self.Monde" />
+          <EntitySet Name="Partie" EntityType="Self.Partie" />
+          <EntitySet Name="Territoire" EntityType="Self.Territoire" />
+          <EntitySet Name="Type_zone" EntityType="Self.Type_zone" />
+          <EntitySet Name="Unite" EntityType="Self.Unite" />
+          <EntitySet Name="Utilisateur" EntityType="Self.Utilisateur" />
+          <EntitySet Name="Zone" EntityType="Self.Zone" />
+          <AssociationSet Name="JhP_toJoueur" Association="Self.JhP_toJoueur">
+            <End Role="Joueur" EntitySet="Joueur" />
+            <End Role="Joueur_has_Partie" EntitySet="Joueur_has_Partie" />
+          </AssociationSet>
+          <AssociationSet Name="JhPFlag_toJoueur" Association="Self.JhPFlag_toJoueur">
+            <End Role="Joueur" EntitySet="Joueur" />
+            <End Role="Joueur_has_Partie" EntitySet="Joueur_has_Partie" />
+          </AssociationSet>
+          <AssociationSet Name="JtU" Association="Self.JtU">
+            <End Role="Utilisateur" EntitySet="Utilisateur" />
+            <End Role="Joueur" EntitySet="Joueur" />
+          </AssociationSet>
+          <AssociationSet Name="P_toJ1" Association="Self.P_toJ1">
+            <End Role="Joueur" EntitySet="Joueur" />
+            <End Role="Partie" EntitySet="Partie" />
+          </AssociationSet>
+          <AssociationSet Name="P_toJ2" Association="Self.P_toJ2">
+            <End Role="Joueur" EntitySet="Joueur" />
+            <End Role="Partie" EntitySet="Partie" />
+          </AssociationSet>
+          <AssociationSet Name="unite_toJoueur" Association="Self.unite_toJoueur">
+            <End Role="Joueur" EntitySet="Joueur" />
+            <End Role="Unite" EntitySet="Unite" />
+          </AssociationSet>
+          <AssociationSet Name="JhP_toPartie" Association="Self.JhP_toPartie">
+            <End Role="Partie" EntitySet="Partie" />
+            <End Role="Joueur_has_Partie" EntitySet="Joueur_has_Partie" />
+          </AssociationSet>
+          <AssociationSet Name="Monde_toPartie" Association="Self.Monde_toPartie">
+            <End Role="Partie" EntitySet="Partie" />
+            <End Role="Monde" EntitySet="Monde" />
+          </AssociationSet>
+          <AssociationSet Name="Zone_ToMonde" Association="Self.Zone_ToMonde">
+            <End Role="Monde" EntitySet="Monde" />
+            <End Role="Zone" EntitySet="Zone" />
+          </AssociationSet>
+          <AssociationSet Name="unite_toZone" Association="Self.unite_toZone">
+            <End Role="Zone" EntitySet="Zone" />
+            <End Role="Unite" EntitySet="Unite" />
+          </AssociationSet>
+          <AssociationSet Name="Zone_Contact" Association="Self.Zone_Contact">
+            <End Role="Zone" EntitySet="Zone" />
+            <End Role="Zone1" EntitySet="Zone" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Risk_ModelStoreContainer" CdmEntityContainer="thomasEntities">
+          <EntitySetMapping Name="Joueur">
+            <EntityTypeMapping TypeName="Risk_Model.Joueur">
+              <MappingFragment StoreEntitySet="Joueur">
+                <ScalarProperty Name="id_joueur" ColumnName="id_joueur" />
+                <ScalarProperty Name="pseudo_joueur" ColumnName="pseudo_joueur" />
+                <ScalarProperty Name="nbrpartiesjoues_joueur" ColumnName="nbrpartiesjoues_joueur" />
+                <ScalarProperty Name="nbrpartiesgagnes_joueur" ColumnName="nbrpartiesgagnes_joueur" />
+                <ScalarProperty Name="nbrpartiesperdues_joueur" ColumnName="nbrpartiesperdues_joueur" />
+                <ScalarProperty Name="joueur_toUtilisateur" ColumnName="joueur_toUtilisateur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Joueur_has_Partie">
+            <EntityTypeMapping TypeName="Risk_Model.Joueur_has_Partie">
+              <MappingFragment StoreEntitySet="Joueur_has_Partie">
+                <ScalarProperty Name="id_joueur" ColumnName="id_joueur" />
+                <ScalarProperty Name="id_partie" ColumnName="id_partie" />
+                <ScalarProperty Name="JhP_flag" ColumnName="JhP_flag" />
+                <ScalarProperty Name="JhP_ordre_de_jeu" ColumnName="JhP_ordre_de_jeu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Monde">
+            <EntityTypeMapping TypeName="Risk_Model.Monde">
+              <MappingFragment StoreEntitySet="Monde">
+                <ScalarProperty Name="id_monde" ColumnName="id_monde" />
+                <ScalarProperty Name="monde_topartie" ColumnName="monde_topartie" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Partie">
+            <EntityTypeMapping TypeName="Risk_Model.Partie">
+              <MappingFragment StoreEntitySet="Partie">
+                <ScalarProperty Name="id_partie" ColumnName="id_partie" />
+                <ScalarProperty Name="nom_partie" ColumnName="nom_partie" />
+                <ScalarProperty Name="phase_partie" ColumnName="phase_partie" />
+                <ScalarProperty Name="partie_toJ1" ColumnName="partie_toJ1" />
+                <ScalarProperty Name="partie_toJ2" ColumnName="partie_toJ2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Territoire">
+            <EntityTypeMapping TypeName="Risk_Model.Territoire">
+              <MappingFragment StoreEntitySet="Territoire">
+                <ScalarProperty Name="id_territoire" ColumnName="id_territoire" />
+                <ScalarProperty Name="nom_territoire" ColumnName="nom_territoire" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Type_zone">
+            <EntityTypeMapping TypeName="Risk_Model.Type_zone">
+              <MappingFragment StoreEntitySet="Type_zone">
+                <ScalarProperty Name="id_typezone" ColumnName="id_typezone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Unite">
+            <EntityTypeMapping TypeName="Risk_Model.Unite">
+              <MappingFragment StoreEntitySet="Unite">
+                <ScalarProperty Name="id_unite" ColumnName="id_unite" />
+                <ScalarProperty Name="nom_unite" ColumnName="nom_unite" />
+                <ScalarProperty Name="position_unite" ColumnName="position_unite" />
+                <ScalarProperty Name="joueur_unite" ColumnName="joueur_unite" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Utilisateur">
+            <EntityTypeMapping TypeName="Risk_Model.Utilisateur">
+              <MappingFragment StoreEntitySet="Utilisateur">
+                <ScalarProperty Name="id_utilisateur" ColumnName="id_utilisateur" />
+                <ScalarProperty Name="nom_utilisateur" ColumnName="nom_utilisateur" />
+                <ScalarProperty Name="prenom_utilisateur" ColumnName="prenom_utilisateur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zone">
+            <EntityTypeMapping TypeName="Risk_Model.Zone">
+              <MappingFragment StoreEntitySet="Zone">
+                <ScalarProperty Name="id_zone" ColumnName="id_zone" />
+                <ScalarProperty Name="nom_zone" ColumnName="nom_zone" />
+                <ScalarProperty Name="coordonneesX_zone" ColumnName="coordonneesX_zone" />
+                <ScalarProperty Name="coordonneesY_zone" ColumnName="coordonneesY_zone" />
+                <ScalarProperty Name="zone_toMonde" ColumnName="zone_toMonde" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Zone_Contact" TypeName="Risk_Model.Zone_Contact" StoreEntitySet="Zone_Contact">
+            <EndProperty Name="Zone">
+              <ScalarProperty Name="id_zone" ColumnName="id_zone_1" />
+            </EndProperty>
+            <EndProperty Name="Zone1">
+              <ScalarProperty Name="id_zone" ColumnName="id_zone_2" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

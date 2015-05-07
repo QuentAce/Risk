@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="824ad56e32d649c39aafb079c1d45810" Name="Diagram1">
+        <EntityTypeShape EntityType="Risk_Model.Joueur" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Risk_Model.Joueur_has_Partie" Width="1.5" PointX="7.5" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Risk_Model.Monde" Width="1.5" PointX="7.5" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Risk_Model.Partie" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Risk_Model.Territoire" Width="1.5" PointX="15.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Risk_Model.Type_zone" Width="1.5" PointX="15.625" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Risk_Model.Unite" Width="1.5" PointX="12" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Risk_Model.Utilisateur" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Risk_Model.Zone" Width="1.5" PointX="9.75" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="Risk_Model.JhP_toJoueur" ManuallyRouted="false" />
+        <AssociationConnector Association="Risk_Model.JhPFlag_toJoueur" ManuallyRouted="false" />
+        <AssociationConnector Association="Risk_Model.JtU" ManuallyRouted="false" />
+        <AssociationConnector Association="Risk_Model.P_toJ1" ManuallyRouted="false" />
+        <AssociationConnector Association="Risk_Model.P_toJ2" ManuallyRouted="false" />
+        <AssociationConnector Association="Risk_Model.unite_toJoueur" ManuallyRouted="false" />
+        <AssociationConnector Association="Risk_Model.JhP_toPartie" ManuallyRouted="false" />
+        <AssociationConnector Association="Risk_Model.Monde_toPartie" ManuallyRouted="false" />
+        <AssociationConnector Association="Risk_Model.Zone_ToMonde" ManuallyRouted="false" />
+        <AssociationConnector Association="Risk_Model.unite_toZone" ManuallyRouted="false" />
+        <AssociationConnector Association="Risk_Model.Zone_Contact" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
