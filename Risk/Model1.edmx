@@ -72,6 +72,8 @@
           <Property Name="id_utilisateur" Type="int" Nullable="false" />
           <Property Name="nom_utilisateur" Type="varchar" MaxLength="50" />
           <Property Name="prenom_utilisateur" Type="varchar" MaxLength="50" />
+          <Property Name="login_utilisateur" Type="varchar" MaxLength="50" />
+          <Property Name="motdepasse_utilisateur" Type="varchar" MaxLength="32" Nullable="false" />
         </EntityType>
         <EntityType Name="Zone">
           <Key>
@@ -384,6 +386,8 @@
           <Property Name="nom_utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="prenom_utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Joueur" Relationship="Self.JtU" FromRole="Utilisateur" ToRole="Joueur" />
+          <Property Name="login_utilisateur" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="motdepasse_utilisateur" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Zone">
           <Key>
@@ -653,6 +657,8 @@
           <EntitySetMapping Name="Utilisateur">
             <EntityTypeMapping TypeName="Risk_Model.Utilisateur">
               <MappingFragment StoreEntitySet="Utilisateur">
+                <ScalarProperty Name="motdepasse_utilisateur" ColumnName="motdepasse_utilisateur" />
+                <ScalarProperty Name="login_utilisateur" ColumnName="login_utilisateur" />
                 <ScalarProperty Name="id_utilisateur" ColumnName="id_utilisateur" />
                 <ScalarProperty Name="nom_utilisateur" ColumnName="nom_utilisateur" />
                 <ScalarProperty Name="prenom_utilisateur" ColumnName="prenom_utilisateur" />

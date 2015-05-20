@@ -12,22 +12,24 @@ namespace Risk
         //Créer chaque zone et l'ajoute dans une liste/bdd
         public void creerZone()
         {
-            for (int y = 1; y <= 5; y++)
-            {
-                for (int x = 1; x <= 5; x++)
+            using (thomasEntities modele = new thomasEntities()) {
+                for (int y = 1; y <= 5; y++)
                 {
-                    using (thomasEntities modele = new thomasEntities()) { 
-                        Zone z = new Zone();
-                        z.coordonneesX_zone = x;
-                        z.coordonneesY_zone = y;
-                        z.nom_zone = (x + " " + y).ToString();
-                        //z.zone_toMonde = ;
-                        list_zone.Add(z);
-                        modele.Zone.Add(z);
-                        modele.SaveChanges();
+                    for (int x = 1; x <= 5; x++)
+                    {
+                     
+                            Zone z = new Zone();
+                            z.coordonneesX_zone = x;
+                            z.coordonneesY_zone = y;
+                            z.nom_zone = (x + " " + y).ToString();
+                            //z.zone_toMonde = ;
+                            list_zone.Add(z);
+                            modele.Zone.Add(z);
                         
-                    }
-                }
+                        
+                     }
+                 }
+            modele.SaveChanges();
             }
         
         //Pour chaque zone dans la liste
@@ -60,7 +62,9 @@ namespace Risk
                     zoneUpdate = (Zone)(modele.Zone.Where(zu => zu.id_zone == z.id_zone));
                     zoneUpdate.Zone1 = z.Zone1;
                     modele.SaveChanges();
-                    
+
+
+                    zoneUpdate.Unite.Count();
 
                 }              
             }
