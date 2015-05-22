@@ -31,6 +31,15 @@ namespace Risk {
         protected global::System.Web.UI.WebControls.Label Label_message;
         
         /// <summary>
+        /// Contrôle Panel_inscription.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel_inscription;
+        
+        /// <summary>
         /// Contrôle Label_Login.
         /// </summary>
         /// <remarks>
@@ -128,5 +137,14 @@ namespace Risk {
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button_inscription;
+        
+        /// <summary>
+        /// Contrôle mon_javascript.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mon_javascript;
     }
 }

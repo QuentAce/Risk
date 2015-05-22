@@ -54,6 +54,11 @@ namespace Risk
                     modele.SaveChanges();
 
                     Label_message.Text = "Inscription validée";
+
+                    Panel_inscription.Visible = false;
+
+                    mon_javascript.InnerHtml = "<script>setTimeout(document.location='default.aspx',8000);</script>";
+                
                     
                 }
             }

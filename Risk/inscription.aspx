@@ -11,7 +11,10 @@
     <form id="form1" runat="server">
     <div>
         <h1>Inscription</h1>
-        <asp:Label ID="Label_message" runat="server" Text="Label"></asp:Label>
+        <asp:Label ID="Label_message" runat="server" Text=""></asp:Label>
+
+        <asp:Panel ID="Panel_inscription" runat="server">
+
     <table>
             <tr>
                 <td><asp:Label ID="Label_Login" runat="server" Text="Login"></asp:Label></td>
@@ -37,7 +40,9 @@
                 <td><asp:Button ID="Button_inscription" runat="server" Text="Valider" OnClick="Button_inscription_Click" /></td>
             </tr>
         </table>
+            </asp:Panel>
     </div>
+        <div id="mon_javascript" runat="server"></div>
     </form>
 </body>
 </html>

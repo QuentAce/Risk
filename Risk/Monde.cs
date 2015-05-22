@@ -21,6 +21,7 @@ namespace Risk
     
         public int id_monde { get; set; }
         public Nullable<int> monde_topartie { get; set; }
+        public string nom_monde { get; set; }
     
         public virtual Partie Partie { get; set; }
         public virtual ICollection<Zone> Zone { get; set; }

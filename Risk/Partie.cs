@@ -25,6 +25,7 @@ namespace Risk
         public Nullable<int> phase_partie { get; set; }
         public Nullable<int> partie_toJ1 { get; set; }
         public Nullable<int> partie_toJ2 { get; set; }
+        public string etat_partie { get; set; }
     
         public virtual Joueur Joueur { get; set; }
         public virtual Joueur Joueur1 { get; set; }

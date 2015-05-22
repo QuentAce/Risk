@@ -69,6 +69,7 @@
     <Content Include="inscription.aspx" />
     <Content Include="privee.aspx" />
     <Content Include="risk_accueil.aspx" />
+    <Content Include="test.aspx" />
     <Content Include="toolkit.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -132,6 +133,13 @@
     </Compile>
     <Compile Include="Territoire.cs">
       <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="test.aspx.cs">
+      <DependentUpon>test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="test.aspx.designer.cs">
+      <DependentUpon>test.aspx</DependentUpon>
     </Compile>
     <Compile Include="toolkit.aspx.cs">
       <DependentUpon>toolkit.aspx</DependentUpon>

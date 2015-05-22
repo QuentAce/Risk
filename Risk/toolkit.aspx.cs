@@ -142,8 +142,8 @@ namespace Risk
             {
                 Monde monde = modele.Monde.FirstOrDefault(m => m.id_monde == 3);
 
-                int xmax = monde.Zone.Max(m => m.coordonneesX_zone);
-                int ymax = monde.Zone.Max(m => m.coordonneesY_zone);
+                int xmax = monde.Zone.Max(m => m.coordonneesX_zone)+1;
+                int ymax = monde.Zone.Max(m => m.coordonneesY_zone)+1;
 
                 initialiser_carte_vide(xmax, ymax);
 
