@@ -15,7 +15,7 @@ namespace Risk
             public int x;
             public int y;
             public String nom { get; set; }
-            public bool terrain=false;        // true= terrain   si false=eau
+            public bool terrain=false;        // true=terrain   si false=eau
 
             public String style_css
             {
@@ -40,7 +40,17 @@ namespace Risk
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                ListBox_monde_dispo.Items.Clear();
+                using (thomasEntities modele = new thomasEntities())
+                {
+                    foreach (Monde m in modele.Monde.Where(m => m.nom_monde != null))
+                    {
+                        ListBox_monde_dispo.Items.Add(new ListItem(m.nom_monde, m.id_monde.ToString()));
+                    }
+                }
+            }
         }
 
         protected void Button_generer_Click(object sender, EventArgs e)
@@ -75,7 +85,7 @@ namespace Risk
 
         protected void Repeater1_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            // On psase dans cet évènement pour chaque element du repeater de premier niveau (celui qui est le plus en haut (Repeater1)
+            // On passe dans cet évènement pour chaque element du repeater de premier niveau (celui qui est le plus en haut (Repeater1)
             Repeater repeater2 = (Repeater)e.Item.FindControl("Repeater2");
 
             // Item représente l'instance du ItemTemplate associé à cet évènement (élément graphique)
@@ -102,48 +112,61 @@ namespace Risk
 
         protected void Button_enregistrer_Click(object sender, EventArgs e)
         {
-            using (thomasEntities modele=new thomasEntities())
+
+            if (TextBox_nom_monde.Text == "")
             {
-                Monde monde = new Monde();
-                modele.Monde.Add(monde);
-                modele.SaveChanges();
-
-                int y = 0;
-                foreach (RepeaterItem ligne in Repeater1.Items)
-                {
-                    Repeater repeater2 = (Repeater)ligne.FindControl("Repeater2");
-                    int x = 0;
-                    foreach (RepeaterItem item in repeater2.Items)
-                    {
-                        Button bouton = (Button)item.FindControl("Button1");
-
-                        if (bouton.CssClass == "terrain")
-                        {
-                            Zone z = new Zone();
-                            z.coordonneesX_zone = x;
-                            z.coordonneesY_zone = y;
-                            z.zone_toMonde = monde.id_monde;
-                            modele.Zone.Add(z);
-                        }
-
-                        x++;
-                    }
-                    y++;
-                }
-                modele.SaveChanges();
+                Label_Message_Monde.Text = "Merci d'indiquer un nom de monde !";
             }
+            else
+            {
+                using (thomasEntities modele = new thomasEntities())
+                {
+                    Monde monde = new Monde();
+                    monde.nom_monde = TextBox_nom_monde.Text;
+                    modele.Monde.Add(monde);
+                    modele.SaveChanges();
 
-            
+
+                    int y = 0;
+                    foreach (RepeaterItem ligne in Repeater1.Items)
+                    {
+                        Repeater repeater2 = (Repeater)ligne.FindControl("Repeater2");
+                        int x = 0;
+                        foreach (RepeaterItem item in repeater2.Items)
+                        {
+                            Button bouton = (Button)item.FindControl("Button1");
+
+                            if (bouton.CssClass == "terrain")
+                            {
+                                Zone z = new Zone();
+                                z.coordonneesX_zone = x;
+                                z.coordonneesY_zone = y;
+                                z.zone_toMonde = monde.id_monde;
+                                modele.Zone.Add(z);
+                            }
+
+                            x++;
+                        }
+                        y++;
+                    }
+                    modele.SaveChanges();
+                }
+            }            
         }
 
         protected void Button_ouvrir_monde_Click(object sender, EventArgs e)
         {
+
+            Monde monde = new Monde();
             using (thomasEntities modele=new thomasEntities())
             {
-                Monde monde = modele.Monde.FirstOrDefault(m => m.id_monde == 3);
+                
 
-                int xmax = monde.Zone.Max(m => m.coordonneesX_zone);
-                int ymax = monde.Zone.Max(m => m.coordonneesY_zone);
+                int numero_monde = int.Parse(ListBox_monde_dispo.SelectedItem.Value);
+                monde = modele.Monde.FirstOrDefault(m => m.id_monde == numero_monde);
+
+                int xmax = monde.Zone.Max(m => m.coordonneesX_zone)+1;
+                int ymax = monde.Zone.Max(m => m.coordonneesY_zone)+1;
 
                 initialiser_carte_vide(xmax, ymax);
 

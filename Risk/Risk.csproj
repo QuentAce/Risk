@@ -67,6 +67,7 @@
   <ItemGroup>
     <Content Include="default.aspx" />
     <Content Include="inscription.aspx" />
+    <Content Include="partie.aspx" />
     <Content Include="privee.aspx" />
     <Content Include="risk_accueil.aspx" />
     <Content Include="toolkit.aspx" />
@@ -111,6 +112,13 @@
     </Compile>
     <Compile Include="Monde.cs">
       <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="partie.aspx.cs">
+      <DependentUpon>partie.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="partie.aspx.designer.cs">
+      <DependentUpon>partie.aspx</DependentUpon>
     </Compile>
     <Compile Include="Partie.cs">
       <DependentUpon>Model1.tt</DependentUpon>

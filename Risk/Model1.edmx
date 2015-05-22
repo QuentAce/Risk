@@ -32,6 +32,7 @@
           </Key>
           <Property Name="id_monde" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="monde_topartie" Type="int" />
+          <Property Name="nom_monde" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Partie">
           <Key>
@@ -42,6 +43,7 @@
           <Property Name="phase_partie" Type="int" />
           <Property Name="partie_toJ1" Type="int" />
           <Property Name="partie_toJ2" Type="int" />
+          <Property Name="etat_partie" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Territoire">
           <Key>
@@ -339,6 +341,7 @@
           <Property Name="monde_topartie" Type="Int32" />
           <NavigationProperty Name="Partie" Relationship="Self.Monde_toPartie" FromRole="Monde" ToRole="Partie" />
           <NavigationProperty Name="Zone" Relationship="Self.Zone_ToMonde" FromRole="Monde" ToRole="Zone" />
+          <Property Name="nom_monde" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Partie">
           <Key>
@@ -353,6 +356,7 @@
           <NavigationProperty Name="Joueur1" Relationship="Self.P_toJ2" FromRole="Partie" ToRole="Joueur" />
           <NavigationProperty Name="Joueur_has_Partie" Relationship="Self.JhP_toPartie" FromRole="Partie" ToRole="Joueur_has_Partie" />
           <NavigationProperty Name="Monde" Relationship="Self.Monde_toPartie" FromRole="Partie" ToRole="Monde" />
+          <Property Name="etat_partie" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Territoire">
           <Key>
@@ -613,6 +617,7 @@
           <EntitySetMapping Name="Monde">
             <EntityTypeMapping TypeName="Risk_Model.Monde">
               <MappingFragment StoreEntitySet="Monde">
+                <ScalarProperty Name="nom_monde" ColumnName="nom_monde" />
                 <ScalarProperty Name="id_monde" ColumnName="id_monde" />
                 <ScalarProperty Name="monde_topartie" ColumnName="monde_topartie" />
               </MappingFragment>
@@ -621,6 +626,7 @@
           <EntitySetMapping Name="Partie">
             <EntityTypeMapping TypeName="Risk_Model.Partie">
               <MappingFragment StoreEntitySet="Partie">
+                <ScalarProperty Name="etat_partie" ColumnName="etat_partie" />
                 <ScalarProperty Name="id_partie" ColumnName="id_partie" />
                 <ScalarProperty Name="nom_partie" ColumnName="nom_partie" />
                 <ScalarProperty Name="phase_partie" ColumnName="phase_partie" />

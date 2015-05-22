@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="824ad56e32d649c39aafb079c1d45810" Name="Diagram1">
-        <EntityTypeShape EntityType="Risk_Model.Joueur" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Risk_Model.Joueur" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Risk_Model.Joueur_has_Partie" Width="1.5" PointX="7.5" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Risk_Model.Monde" Width="1.5" PointX="7.5" PointY="6.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Risk_Model.Partie" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
