@@ -71,7 +71,7 @@
           <Key>
             <PropertyRef Name="id_utilisateur" />
           </Key>
-          <Property Name="id_utilisateur" Type="int" Nullable="false" />
+          <Property Name="id_utilisateur" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nom_utilisateur" Type="varchar" MaxLength="50" />
           <Property Name="prenom_utilisateur" Type="varchar" MaxLength="50" />
           <Property Name="login_utilisateur" Type="varchar" MaxLength="50" />
