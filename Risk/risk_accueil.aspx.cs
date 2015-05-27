@@ -21,7 +21,7 @@ namespace Risk
 
                 if (user != null)
                 {
-                    using (thomasEntities modele = new thomasEntities())
+                    using (thomasEntities1 modele = new thomasEntities1())
                     {
                         jo = modele.Joueur.FirstOrDefault(j => j.joueur_toUtilisateur == user.id_utilisateur);      
                     }
@@ -42,7 +42,7 @@ namespace Risk
             //}
             
 
-            using (thomasEntities modele = new thomasEntities())
+            using (thomasEntities1 modele = new thomasEntities1())
             {
                 ListBox_Partie.Items.Clear();
                 IQueryable<Partie> req_partie_en_cours = from partie in modele.Partie
@@ -67,7 +67,7 @@ namespace Risk
         {
             if (TextBox_pseudo.Text.Length <= 25 || TextBox_pseudo.Text.Length >=5)
             {
-                using (thomasEntities modele = new thomasEntities())
+                using (thomasEntities1 modele = new thomasEntities1())
                 {
                     if (modele.Joueur.FirstOrDefault(u => u.pseudo_joueur == TextBox_pseudo.Text) != null)
                     {

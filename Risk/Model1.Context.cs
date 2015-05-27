@@ -13,10 +13,10 @@ namespace Risk
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class thomasEntities : DbContext
+    public partial class thomasEntities1 : DbContext
     {
-        public thomasEntities()
-            : base("name=thomasEntities")
+        public thomasEntities1()
+            : base("name=thomasEntities1")
         {
         }
     
@@ -27,10 +27,8 @@ namespace Risk
     
         public virtual DbSet<Joueur> Joueur { get; set; }
         public virtual DbSet<Joueur_has_Partie> Joueur_has_Partie { get; set; }
-        public virtual DbSet<Monde> Monde { get; set; }
+        public virtual DbSet<New_Monde> New_Monde { get; set; }
         public virtual DbSet<Partie> Partie { get; set; }
-        public virtual DbSet<Territoire> Territoire { get; set; }
-        public virtual DbSet<Type_zone> Type_zone { get; set; }
         public virtual DbSet<Unite> Unite { get; set; }
         public virtual DbSet<Utilisateur> Utilisateur { get; set; }
         public virtual DbSet<Zone> Zone { get; set; }

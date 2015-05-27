@@ -74,19 +74,13 @@
             </ContentTemplate>
         </asp:UpdatePanel>
         <br />
+                <asp:Button ID="Button2" runat="server" Text="Air" Width="26px" OnClick="Button2_Click"/>
+        <br />
         <br />
 
         <asp:Button ID="Button_ouvrir_monde" runat="server" Text="Ouvrir monde" Width="118px" OnClick="Button_ouvrir_monde_Click" />
         &nbsp;&nbsp;&nbsp;
-        <asp:Button ID="Button_lancer_partie" runat="server" Text="Lancer partie" />
-
-        <script type="text/javascript">
-
-        function on_refresh() {
-            __doPostBack('<%= UpdatePanel_liste_monde.ClientID %>', '');
-        }
-        setInterval(on_refresh, 3000);
-    </script>
+        <asp:Button ID="Button_lancer_partie" runat="server" Text="Lancer partie" OnClick="Button_lancer_partie_Click" />
     </form>
 </body>
 </html>

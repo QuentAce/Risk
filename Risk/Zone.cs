@@ -27,7 +27,7 @@ namespace Risk
         public int coordonneesY_zone { get; set; }
         public Nullable<int> zone_toMonde { get; set; }
     
-        public virtual Monde Monde { get; set; }
+        public virtual New_Monde New_Monde { get; set; }
         public virtual ICollection<Unite> Unite { get; set; }
         public virtual ICollection<Zone> Zone1 { get; set; }
         public virtual ICollection<Zone> Zone2 { get; set; }
