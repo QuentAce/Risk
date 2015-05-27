@@ -5,46 +5,43 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-
-
 namespace Risk
 {
     public partial class toolkit : System.Web.UI.Page
     {
 
-        public class MaZone
+        public Joueur j1;
+
+        //public class MaZone
+        //{
+        //    public int x;
+        //    public int y;
+        //    public String nom { get; set; }
+        //    public bool terrain=false;        // true=terrain   si false=eau
+
+        //    public String style_css
+        //    {
+        //        get
+        //        {
+        //            if (terrain==false) return "terrain";
+        //            return "eau";
+        //        }
+        //    }
+        //}
+
+        //public class LigneMonde
+        //{
+        //    public List<MaZone> items = new List<MaZone>();
+
+        //    public void Add(MaZone z)
+        //    {
+        //        items.Add(z);
+        //    }
+        //}
+
+        public void charger_liste_monde()
         {
-            public int x;
-            public int y;
-            public String nom { get; set; }
-            public bool terrain=false;        // true=terrain   si false=eau
-
-            public String style_css
-            {
-                get
-                {
-                    if (terrain==false) return "terrain";
-                    return "eau";
-                }
-            }
-        }
-
-        public class LigneMonde
-        {
-            public List<MaZone> items = new List<MaZone>();
-
-            public void Add(MaZone z)
-            {
-                items.Add(z);
-            }
-        }
-
-
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!IsPostBack)
-            {
-                ListBox_monde_dispo.Items.Clear();
+            ListBox_monde_dispo.Items.Clear();
                 using (thomasEntities1 modele = new thomasEntities1())
                 {
                     foreach (New_Monde m in modele.New_Monde.Where(m => m.nom_new_monde != null))
@@ -52,7 +49,24 @@ namespace Risk
                         ListBox_monde_dispo.Items.Add(new ListItem(m.nom_new_monde, m.id_new_monde.ToString()));
                     }
                 }
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            j1 = (Joueur)Session["joueur"];
+
+            if (j1 == null)
+            {
+                Response.Redirect("default.aspx");
             }
+            else
+            {
+                if (!IsPostBack)
+                    {
+                        charger_liste_monde();
+                    }
+            }
+            
         }
 
         protected void Button_generer_Click(object sender, EventArgs e)
@@ -161,7 +175,8 @@ namespace Risk
 
             New_Monde monde = new New_Monde();
             using (thomasEntities1 modele=new thomasEntities1())
-            {               
+            {
+                
 
                 int numero_monde = int.Parse(ListBox_monde_dispo.SelectedItem.Value);
                 monde = modele.New_Monde.FirstOrDefault(m => m.id_new_monde == numero_monde);
@@ -199,7 +214,26 @@ namespace Risk
 
         protected void Button_lancer_partie_Click(object sender, EventArgs e)
         {
-            
+            using (thomasEntities1 modele = new thomasEntities1())
+            {
+
+                Partie partie = new Partie();
+                partie.etat_partie = "Créer";
+                partie.partie_toJ1 = j1.id_joueur;
+                partie.nom_partie = TextBox_nom_partie.Text;
+                partie.partie_tonew_monde = int.Parse(ListBox_monde_dispo.SelectedItem.Value);
+                modele.Partie.Add(partie);
+                modele.SaveChanges();
+
+                Session["partie"] = partie.id_partie;
+                Response.Redirect("partie.aspx");
+            }
+        }
+
+        //Button2 = Bouton rafraichir liste map.
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            charger_liste_monde();
         }
     }
 }

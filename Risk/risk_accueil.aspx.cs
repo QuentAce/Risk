@@ -17,13 +17,13 @@ namespace Risk
         {
             if (((Utilisateur)Session["utilisateur"]) != null)
             {
-                Utilisateur user =  (Utilisateur)Session["utilisateur"];
+                Utilisateur user = (Utilisateur)Session["utilisateur"];
 
                 if (user != null)
                 {
                     using (thomasEntities1 modele = new thomasEntities1())
                     {
-                        jo = modele.Joueur.FirstOrDefault(j => j.joueur_toUtilisateur == user.id_utilisateur);      
+                        jo = modele.Joueur.FirstOrDefault(j => j.joueur_toUtilisateur == user.id_utilisateur);
                     }
                     if (jo != null)
                     {
@@ -36,30 +36,28 @@ namespace Risk
             {
                 Response.Redirect("default.aspx");
             }
-            //if (((Utilisateur)Session["utilisateur"]).Joueur == null)
-            //{
-            //    Panel_pseudo.Visible = true;
-            //}
-            
 
             using (thomasEntities1 modele = new thomasEntities1())
             {
-                ListBox_Partie.Items.Clear();
-                IQueryable<Partie> req_partie_en_cours = from partie in modele.Partie
-                                                         where partie.etat_partie == "en_attente"
-                                                         select partie;
-
-
-                foreach (Partie p in req_partie_en_cours)
+                if (!IsPostBack)
                 {
-                    ListBox_Partie.Items.Add(p.nom_partie);
+                    ListBox_Partie.Items.Clear();
+                    IQueryable<Partie> req_partie_en_cours = from partie in modele.Partie
+                                                             where partie.etat_partie == "Créer"
+                                                             select partie;
+
+
+                    foreach (Partie p in req_partie_en_cours)
+                    {
+                        ListBox_Partie.Items.Add(new ListItem(p.nom_partie, p.id_partie.ToString()));
+                    }
+
                 }
-                
             }
         }
-
         protected void Button_creer_partie_Click(object sender, EventArgs e)
         {
+            Session["joueur"] = jo;
             Response.Redirect("toolkit.aspx");
         }
 
@@ -97,7 +95,17 @@ namespace Risk
 
         protected void Button_rejoindre_partie_Click(object sender, EventArgs e)
         {
+            using (thomasEntities1 modele = new thomasEntities1())
+            {
+                int numPartie = int.Parse(ListBox_Partie.SelectedItem.Value);
+                Partie join_partie = modele.Partie.FirstOrDefault(p => p.id_partie == numPartie );
+                join_partie.partie_toJ2 = jo.id_joueur;
+                join_partie.etat_partie = "en cours";
+                modele.SaveChanges();
+                Session["partie"] = join_partie.id_partie;
+                Response.Redirect("partie.aspx");
 
+            }
         }
     }
 }
