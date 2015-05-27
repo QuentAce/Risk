@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="22d9842c162242bd805a4b102171b00f" Name="Diagram1">
-        <EntityTypeShape EntityType="thomasModel.Joueur" Width="1.5" PointX="7.625" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="thomasModel.Joueur" Width="1.5" PointX="7.375" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="thomasModel.Joueur_has_Partie" Width="1.5" PointX="10" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="thomasModel.New_Monde" Width="1.5" PointX="3.375" PointY="2.5" IsExpanded="true" />
         <EntityTypeShape EntityType="thomasModel.Partie" Width="1.5" PointX="10.25" PointY="5.875" IsExpanded="true" />
@@ -22,6 +22,7 @@
         <AssociationConnector Association="thomasModel.Zone_ToMonde" ManuallyRouted="false" />
         <AssociationConnector Association="thomasModel.unite_toZone" ManuallyRouted="false" />
         <AssociationConnector Association="thomasModel.Zone_Contact" ManuallyRouted="false" />
+        <AssociationConnector Association="thomasModel.P_toM" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

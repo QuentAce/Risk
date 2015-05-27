@@ -25,9 +25,11 @@ namespace Risk
         public Nullable<int> partie_toJ1 { get; set; }
         public Nullable<int> partie_toJ2 { get; set; }
         public string etat_partie { get; set; }
+        public int partie_tonew_monde { get; set; }
     
         public virtual Joueur Joueur { get; set; }
         public virtual Joueur Joueur1 { get; set; }
         public virtual ICollection<Joueur_has_Partie> Joueur_has_Partie { get; set; }
+        public virtual New_Monde New_Monde { get; set; }
     }
 }

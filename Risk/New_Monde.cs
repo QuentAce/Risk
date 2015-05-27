@@ -17,11 +17,13 @@ namespace Risk
         public New_Monde()
         {
             this.Zone = new HashSet<Zone>();
+            this.Partie = new HashSet<Partie>();
         }
     
         public int id_new_monde { get; set; }
         public string nom_new_monde { get; set; }
     
         public virtual ICollection<Zone> Zone { get; set; }
+        public virtual ICollection<Partie> Partie { get; set; }
     }
 }

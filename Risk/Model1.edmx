@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="thomasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="thomasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Joueur">
           <Key>
             <PropertyRef Name="id_joueur" />
@@ -43,6 +43,7 @@
           <Property Name="partie_toJ1" Type="int" />
           <Property Name="partie_toJ2" Type="int" />
           <Property Name="etat_partie" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="partie_tonew_monde" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Unite">
           <Key>
@@ -153,6 +154,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="P_toM">
+          <End Role="New_Monde" Type="Self.New_Monde" Multiplicity="1" />
+          <End Role="Partie" Type="Self.Partie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="New_Monde">
+              <PropertyRef Name="id_new_monde" />
+            </Principal>
+            <Dependent Role="Partie">
+              <PropertyRef Name="partie_tonew_monde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="unite_toJoueur">
           <End Role="Joueur" Type="Self.Joueur" Multiplicity="0..1" />
           <End Role="Unite" Type="Self.Unite" Multiplicity="*" />
@@ -246,6 +259,10 @@
             <End Role="Joueur" EntitySet="Joueur" />
             <End Role="Partie" EntitySet="Partie" />
           </AssociationSet>
+          <AssociationSet Name="P_toM" Association="Self.P_toM">
+            <End Role="New_Monde" EntitySet="New_Monde" />
+            <End Role="Partie" EntitySet="Partie" />
+          </AssociationSet>
           <AssociationSet Name="unite_toJoueur" Association="Self.unite_toJoueur">
             <End Role="Joueur" EntitySet="Joueur" />
             <End Role="Unite" EntitySet="Unite" />
@@ -267,8 +284,7 @@
             <End Role="Zone" EntitySet="Zone" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="thomasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -309,6 +325,7 @@
           <Property Name="id_new_monde" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nom_new_monde" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Zone" Relationship="Self.Zone_ToMonde" FromRole="New_Monde" ToRole="Zone" />
+          <NavigationProperty Name="Partie" Relationship="thomasModel.P_toM" FromRole="New_Monde" ToRole="Partie" />
         </EntityType>
         <EntityType Name="Partie">
           <Key>
@@ -323,6 +340,8 @@
           <NavigationProperty Name="Joueur" Relationship="Self.P_toJ1" FromRole="Partie" ToRole="Joueur" />
           <NavigationProperty Name="Joueur1" Relationship="Self.P_toJ2" FromRole="Partie" ToRole="Joueur" />
           <NavigationProperty Name="Joueur_has_Partie" Relationship="Self.JhP_toPartie" FromRole="Partie" ToRole="Joueur_has_Partie" />
+          <Property Name="partie_tonew_monde" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="New_Monde" Relationship="thomasModel.P_toM" FromRole="Partie" ToRole="New_Monde" />
         </EntityType>
         <EntityType Name="Unite">
           <Key>
@@ -520,7 +539,23 @@
             <End Role="Zone" EntitySet="Zone" />
             <End Role="Zone1" EntitySet="Zone" />
           </AssociationSet>
+          <AssociationSet Name="P_toM" Association="thomasModel.P_toM">
+            <End Role="New_Monde" EntitySet="New_Monde" />
+            <End Role="Partie" EntitySet="Partie" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="P_toM">
+          <End Type="thomasModel.New_Monde" Role="New_Monde" Multiplicity="1" />
+          <End Type="thomasModel.Partie" Role="Partie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="New_Monde">
+              <PropertyRef Name="id_new_monde" />
+            </Principal>
+            <Dependent Role="Partie">
+              <PropertyRef Name="partie_tonew_monde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -560,6 +595,7 @@
           <EntitySetMapping Name="Partie">
             <EntityTypeMapping TypeName="thomasModel.Partie">
               <MappingFragment StoreEntitySet="Partie">
+                <ScalarProperty Name="partie_tonew_monde" ColumnName="partie_tonew_monde" />
                 <ScalarProperty Name="id_partie" ColumnName="id_partie" />
                 <ScalarProperty Name="nom_partie" ColumnName="nom_partie" />
                 <ScalarProperty Name="phase_partie" ColumnName="phase_partie" />
