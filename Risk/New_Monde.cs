@@ -12,18 +12,16 @@ namespace Risk
     using System;
     using System.Collections.Generic;
     
-    public partial class Monde
+    public partial class New_Monde
     {
-        public Monde()
+        public New_Monde()
         {
             this.Zone = new HashSet<Zone>();
         }
     
-        public int id_monde { get; set; }
-        public Nullable<int> monde_topartie { get; set; }
-        public string nom_monde { get; set; }
+        public int id_new_monde { get; set; }
+        public string nom_new_monde { get; set; }
     
-        public virtual Partie Partie { get; set; }
         public virtual ICollection<Zone> Zone { get; set; }
     }
 }

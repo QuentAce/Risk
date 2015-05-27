@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+
+
 namespace Risk
 {
     public partial class toolkit : System.Web.UI.Page
@@ -43,11 +45,11 @@ namespace Risk
             if (!IsPostBack)
             {
                 ListBox_monde_dispo.Items.Clear();
-                using (thomasEntities modele = new thomasEntities())
+                using (thomasEntities1 modele = new thomasEntities1())
                 {
-                    foreach (Monde m in modele.Monde.Where(m => m.nom_monde != null))
+                    foreach (New_Monde m in modele.New_Monde.Where(m => m.nom_new_monde != null))
                     {
-                        ListBox_monde_dispo.Items.Add(new ListItem(m.nom_monde, m.id_monde.ToString()));
+                        ListBox_monde_dispo.Items.Add(new ListItem(m.nom_new_monde, m.id_new_monde.ToString()));
                     }
                 }
             }
@@ -119,11 +121,11 @@ namespace Risk
             }
             else
             {
-                using (thomasEntities modele = new thomasEntities())
+                using (thomasEntities1 modele = new thomasEntities1())
                 {
-                    Monde monde = new Monde();
-                    monde.nom_monde = TextBox_nom_monde.Text;
-                    modele.Monde.Add(monde);
+                    New_Monde monde = new New_Monde();
+                    monde.nom_new_monde = TextBox_nom_monde.Text;
+                    modele.New_Monde.Add(monde);
                     modele.SaveChanges();
 
 
@@ -141,7 +143,7 @@ namespace Risk
                                 Zone z = new Zone();
                                 z.coordonneesX_zone = x;
                                 z.coordonneesY_zone = y;
-                                z.zone_toMonde = monde.id_monde;
+                                z.zone_toMonde = monde.id_new_monde;
                                 modele.Zone.Add(z);
                             }
 
@@ -157,13 +159,12 @@ namespace Risk
         protected void Button_ouvrir_monde_Click(object sender, EventArgs e)
         {
 
-            Monde monde = new Monde();
-            using (thomasEntities modele=new thomasEntities())
-            {
-                
+            New_Monde monde = new New_Monde();
+            using (thomasEntities1 modele=new thomasEntities1())
+            {               
 
                 int numero_monde = int.Parse(ListBox_monde_dispo.SelectedItem.Value);
-                monde = modele.Monde.FirstOrDefault(m => m.id_monde == numero_monde);
+                monde = modele.New_Monde.FirstOrDefault(m => m.id_new_monde == numero_monde);
 
                 int xmax = monde.Zone.Max(m => m.coordonneesX_zone)+1;
                 int ymax = monde.Zone.Max(m => m.coordonneesY_zone)+1;
@@ -194,6 +195,11 @@ namespace Risk
                 }
 
             }
+        }
+
+        protected void Button_lancer_partie_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

@@ -11,7 +11,12 @@
     <form id="form1" runat="server">
     <div>
     <h1>Risk</h1>
+
+
+
         <asp:Label ID="Label_accueil" runat="server" Text=""></asp:Label>
+
+
 
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
@@ -33,7 +38,7 @@
             </ContentTemplate>
         </asp:UpdatePanel>
 
-        <asp:Button ID="Button_rejoindre_partie" runat="server" Text="Rejoindre" /><br />
+        <asp:Button ID="Button_rejoindre_partie" runat="server" Text="Rejoindre" OnClick="Button_rejoindre_partie_Click" /><br />
         <br />
         <br />
         <asp:Button ID="Button_creer_partie" runat="server" Text="Créer" OnClick="Button_creer_partie_Click" /><br />

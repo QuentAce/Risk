@@ -21,7 +21,7 @@ namespace Risk
 
                 if (user != null)
                 {
-                    using (thomasEntities modele = new thomasEntities())
+                    using (thomasEntities1 modele = new thomasEntities1())
                     {
                         jo = modele.Joueur.FirstOrDefault(j => j.joueur_toUtilisateur == user.id_utilisateur);      
                     }
@@ -42,7 +42,7 @@ namespace Risk
             //}
             
 
-            using (thomasEntities modele = new thomasEntities())
+            using (thomasEntities1 modele = new thomasEntities1())
             {
                 ListBox_Partie.Items.Clear();
                 IQueryable<Partie> req_partie_en_cours = from partie in modele.Partie
@@ -65,9 +65,9 @@ namespace Risk
 
         protected void Button_valider_pseudo_Click(object sender, EventArgs e)
         {
-            if (TextBox_pseudo.Text.Length <= 25 || TextBox_pseudo.Text.Length >=5)
+            if (TextBox_pseudo.Text.Length <= 25 && TextBox_pseudo.Text.Length >=5)
             {
-                using (thomasEntities modele = new thomasEntities())
+                using (thomasEntities1 modele = new thomasEntities1())
                 {
                     if (modele.Joueur.FirstOrDefault(u => u.pseudo_joueur == TextBox_pseudo.Text) != null)
                     {
@@ -83,7 +83,8 @@ namespace Risk
                         joueur.nbrpartiesperdues_joueur = 0;
                         modele.Joueur.Add(joueur);
                         modele.SaveChanges();
-                        Panel_pseudo.Visible = false;
+                        //Panel_pseudo.Visible = false;
+                        Response.Redirect("risk_accueil.aspx");
                     }
                 }
             }
@@ -92,6 +93,11 @@ namespace Risk
                 Label_message.Text="Pseudo trop long";               
             }
             
+        }
+
+        protected void Button_rejoindre_partie_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

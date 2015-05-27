@@ -17,7 +17,6 @@ namespace Risk
         public Partie()
         {
             this.Joueur_has_Partie = new HashSet<Joueur_has_Partie>();
-            this.Monde = new HashSet<Monde>();
         }
     
         public int id_partie { get; set; }
@@ -30,6 +29,5 @@ namespace Risk
         public virtual Joueur Joueur { get; set; }
         public virtual Joueur Joueur1 { get; set; }
         public virtual ICollection<Joueur_has_Partie> Joueur_has_Partie { get; set; }
-        public virtual ICollection<Monde> Monde { get; set; }
     }
 }
