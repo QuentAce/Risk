@@ -77,6 +77,10 @@
                 <asp:Button ID="Button2" runat="server" Text="Air" Width="26px" OnClick="Button2_Click"/>
         <br />
         <br />
+        <asp:Label ID="Label1" runat="server" Text="Nom de la partie : "></asp:Label>
+&nbsp;<asp:TextBox ID="TextBox_nom_partie" runat="server"></asp:TextBox>
+        <br />
+        <br />
 
         <asp:Button ID="Button_ouvrir_monde" runat="server" Text="Ouvrir monde" Width="118px" OnClick="Button_ouvrir_monde_Click" />
         &nbsp;&nbsp;&nbsp;

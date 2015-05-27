@@ -10,32 +10,34 @@ namespace Risk
     public partial class toolkit : System.Web.UI.Page
     {
 
-        public class MaZone
-        {
-            public int x;
-            public int y;
-            public String nom { get; set; }
-            public bool terrain=false;        // true=terrain   si false=eau
+        public Joueur j1;
 
-            public String style_css
-            {
-                get
-                {
-                    if (terrain==false) return "terrain";
-                    return "eau";
-                }
-            }
-        }
+        //public class MaZone
+        //{
+        //    public int x;
+        //    public int y;
+        //    public String nom { get; set; }
+        //    public bool terrain=false;        // true=terrain   si false=eau
 
-        public class LigneMonde
-        {
-            public List<MaZone> items = new List<MaZone>();
+        //    public String style_css
+        //    {
+        //        get
+        //        {
+        //            if (terrain==false) return "terrain";
+        //            return "eau";
+        //        }
+        //    }
+        //}
 
-            public void Add(MaZone z)
-            {
-                items.Add(z);
-            }
-        }
+        //public class LigneMonde
+        //{
+        //    public List<MaZone> items = new List<MaZone>();
+
+        //    public void Add(MaZone z)
+        //    {
+        //        items.Add(z);
+        //    }
+        //}
 
         public void charger_liste_monde()
         {
@@ -51,10 +53,20 @@ namespace Risk
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            j1 = (Joueur)Session["joueur"];
+
+            if (j1 == null)
             {
-                charger_liste_monde();
+                Response.Redirect("default.aspx");
             }
+            else
+            {
+                if (!IsPostBack)
+                    {
+                        charger_liste_monde();
+                    }
+            }
+            
         }
 
         protected void Button_generer_Click(object sender, EventArgs e)
@@ -202,7 +214,20 @@ namespace Risk
 
         protected void Button_lancer_partie_Click(object sender, EventArgs e)
         {
+            using (thomasEntities1 modele = new thomasEntities1())
+            {
 
+                Partie partie = new Partie();
+                partie.etat_partie = "Créer";
+                partie.partie_toJ1 = j1.id_joueur;
+                partie.nom_partie = TextBox_nom_partie.Text;
+                partie.partie_tonew_monde = int.Parse(ListBox_monde_dispo.SelectedItem.Value);
+                modele.Partie.Add(partie);
+                modele.SaveChanges();
+
+                Session["partie"] = partie.id_partie;
+                Response.Redirect("partie.aspx");
+            }
         }
 
         //Button2 = Bouton rafraichir liste map.

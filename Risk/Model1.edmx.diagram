@@ -5,13 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="22d9842c162242bd805a4b102171b00f" Name="Diagram1">
-        <EntityTypeShape EntityType="thomasModel.Joueur" Width="1.5" PointX="7.375" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="thomasModel.Joueur" Width="1.5" PointX="7.625" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="thomasModel.Joueur_has_Partie" Width="1.5" PointX="10" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="thomasModel.New_Monde" Width="1.5" PointX="3.375" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="thomasModel.New_Monde" Width="1.5" PointX="7.5" PointY="3.375" IsExpanded="true" />
         <EntityTypeShape EntityType="thomasModel.Partie" Width="1.5" PointX="10.25" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="thomasModel.Unite" Width="1.5" PointX="7.75" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="thomasModel.Utilisateur" Width="1.5" PointX="4.625" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="thomasModel.Zone" Width="1.5" PointX="5.375" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="thomasModel.Unite" Width="1.5" PointX="16.125" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="thomasModel.Utilisateur" Width="1.5" PointX="13.125" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="thomasModel.Zone" Width="1.5" PointX="13.375" PointY="3.125" IsExpanded="true" />
         <AssociationConnector Association="thomasModel.JhP_toJoueur" ManuallyRouted="false" />
         <AssociationConnector Association="thomasModel.JhPFlag_toJoueur" ManuallyRouted="false" />
         <AssociationConnector Association="thomasModel.JtU" ManuallyRouted="false" />
