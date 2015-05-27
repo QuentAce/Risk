@@ -28,6 +28,9 @@ namespace Risk
                     partie = modele.Partie.FirstOrDefault(p => p.id_partie == idPartie);
 
 
+
+
+
                     int numero_monde = partie.partie_tonew_monde;
                     monde = modele.New_Monde.FirstOrDefault(m => m.id_new_monde == numero_monde);
 
