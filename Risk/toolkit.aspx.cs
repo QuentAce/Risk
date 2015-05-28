@@ -12,33 +12,6 @@ namespace Risk
 
         public Joueur j1;
 
-        //public class MaZone
-        //{
-        //    public int x;
-        //    public int y;
-        //    public String nom { get; set; }
-        //    public bool terrain=false;        // true=terrain   si false=eau
-
-        //    public String style_css
-        //    {
-        //        get
-        //        {
-        //            if (terrain==false) return "terrain";
-        //            return "eau";
-        //        }
-        //    }
-        //}
-
-        //public class LigneMonde
-        //{
-        //    public List<MaZone> items = new List<MaZone>();
-
-        //    public void Add(MaZone z)
-        //    {
-        //        items.Add(z);
-        //    }
-        //}
-
         public void charger_liste_monde()
         {
             ListBox_monde_dispo.Items.Clear();
@@ -176,8 +149,6 @@ namespace Risk
             New_Monde monde = new New_Monde();
             using (thomasEntities1 modele=new thomasEntities1())
             {
-                
-
                 int numero_monde = int.Parse(ListBox_monde_dispo.SelectedItem.Value);
                 monde = modele.New_Monde.FirstOrDefault(m => m.id_new_monde == numero_monde);
 
