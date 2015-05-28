@@ -9,10 +9,15 @@ namespace Risk
 {
     public partial class Partie1 : System.Web.UI.Page
     {
+
+        int num_tour = 0;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             int idPartie;
             Partie partie;
+
+            
 
             if (Session["partie"] == null)
             {
@@ -82,6 +87,14 @@ namespace Risk
 
             Repeater1.DataSource = lignes;
             Repeater1.DataBind();
+        }
+
+        protected void But_fin_de_tour_Click(object sender, EventArgs e)
+        {
+            
+            Label_num_tour.Text = num_tour.ToString();
+            num_tour++;
+            Label_num_tour.Text = num_tour.ToString();
         }
 
 

@@ -20,7 +20,20 @@
             text-align:center;
             padding: 0 0 0 0;
         }
+        .terrain { background-color:#BD8D46}
+        .eau { background-color:#0000AA}
+        
+        .terrain,.eau {
+            width:30px;
+            height:30px;
+            margin:auto;
+            padding: 0 0 0 0;
+        }
 
+        table.jeu, table.jeu tr, table.jeu td {
+              margin:auto;
+            padding: 0 0 0 0;
+        }
         
 
     </style>
@@ -72,7 +85,7 @@
 
     <div id="pied">
         <asp:Button ID="But_fin_de_phase" runat="server" Text="Fin de phase" Width="150px" />
-        <asp:Button ID="But_fin_de_tour" runat="server" Text="Fin de tour" Width="150px" />
+        <asp:Button ID="But_fin_de_tour" runat="server" Text="Fin de tour" Width="150px" OnClick="But_fin_de_tour_Click" />
     </div>
     </div>
     </form>
