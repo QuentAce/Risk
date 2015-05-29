@@ -118,18 +118,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="JhPFlag_toJoueur">
-          <End Role="Joueur" Type="Self.Joueur" Multiplicity="0..1" />
-          <End Role="Joueur_has_Partie" Type="Self.Joueur_has_Partie" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Joueur">
-              <PropertyRef Name="id_joueur" />
-            </Principal>
-            <Dependent Role="Joueur_has_Partie">
-              <PropertyRef Name="JhP_flag" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="JtU">
           <End Role="Utilisateur" Type="Self.Utilisateur" Multiplicity="0..1" />
           <End Role="Joueur" Type="Self.Joueur" Multiplicity="*" />
@@ -257,10 +245,6 @@
           </AssociationSet>
           <AssociationSet Name="JhP_toPartie" Association="Self.JhP_toPartie">
             <End Role="Partie" EntitySet="Partie" />
-            <End Role="Joueur_has_Partie" EntitySet="Joueur_has_Partie" />
-          </AssociationSet>
-          <AssociationSet Name="JhPFlag_toJoueur" Association="Self.JhPFlag_toJoueur">
-            <End Role="Joueur" EntitySet="Joueur" />
             <End Role="Joueur_has_Partie" EntitySet="Joueur_has_Partie" />
           </AssociationSet>
           <AssociationSet Name="JtU" Association="Self.JtU">
