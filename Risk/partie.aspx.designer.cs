@@ -58,24 +58,6 @@ namespace Risk {
         protected global::System.Web.UI.WebControls.Label Label_nom_monde;
         
         /// <summary>
-        /// Label_num_tour_fixe control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label_num_tour_fixe;
-        
-        /// <summary>
-        /// Label_num_tour control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label_num_tour;
-        
-        /// <summary>
         /// Label_joueur_fixe control.
         /// </summary>
         /// <remarks>
@@ -119,6 +101,15 @@ namespace Risk {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater Repeater1;
+        
+        /// <summary>
+        /// UpdatePanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
         /// But_fin_de_phase control.

@@ -16,7 +16,8 @@ namespace Risk
 
         protected void Button_inscription_Click(object sender, EventArgs e)
         {
-            using (thomasEntities1 modele = new thomasEntities1()) { 
+            using (thomasEntities2 modele = new thomasEntities2())
+            { 
                 if (TextBox_Login.Text == "")
                 {
                     Label_message.Text = "Login obligatoire";

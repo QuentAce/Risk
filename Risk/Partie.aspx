@@ -49,11 +49,9 @@
                 <ContentTemplate>
                     <table border="1">
                         <tr>
-                            <td id="info_partie">
+                            <td id="info_partie" width="300px" height="100px">
                                 <asp:Label ID="Label_nom_monde_fixe" runat="server" Text="Nom du Monde : "></asp:Label>
                                 <asp:Label ID="Label_nom_monde" runat="server" Text=""></asp:Label> <br />
-                                <asp:Label ID="Label_num_tour_fixe" runat="server" Text="Tour n° : "></asp:Label>
-                                <asp:Label ID="Label_num_tour" runat="server" Text=""></asp:Label> <br />
                                 <asp:Label ID="Label_joueur_fixe" runat="server" Text="Joueur : "></asp:Label>
                                 <asp:Label ID="Label_joueur" runat="server" Text=""></asp:Label> <br />
                                 <asp:Label ID="Label_phase_fixe" runat="server" Text="Phase : "></asp:Label>
@@ -64,7 +62,11 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
-
+        <div id="espace_1">
+            <table>
+                <td height="40px"></td>
+            </table>
+        </div>
         <div id="corps">
 
             <table class="jeu">
@@ -85,9 +87,19 @@
 
         </div>
 
+        <div id="espace_2">
+            <table>
+                <td height="40px"></td>
+            </table>
+        </div>
+
         <div id="pied">
-            <asp:Button ID="But_fin_de_phase" runat="server" Text="Fin de phase" Width="150px" OnClick="But_fin_de_phase_Click" />
-            <asp:Button ID="But_fin_de_tour" runat="server" Text="Fin de tour" Width="150px" OnClick="But_fin_de_tour_Click" />
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+                    <asp:Button ID="But_fin_de_phase" runat="server" Text="Fin de phase" Width="150px" OnClick="But_fin_de_phase_Click" />
+                    <asp:Button ID="But_fin_de_tour" runat="server" Text="Fin de tour" Width="150px" OnClick="But_fin_de_tour_Click" />
+                </ContentTemplate>
+            </asp:UpdatePanel>
         </div>
     </div>
     </form>

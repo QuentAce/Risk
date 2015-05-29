@@ -23,7 +23,7 @@ namespace Risk
                 idPartie = (int)Session["partie"];
                 
                 New_Monde monde = new New_Monde();
-                using (thomasEntities1 modele = new thomasEntities1())
+                using (thomasEntities2 modele = new thomasEntities2())
                 {
 
                     partie = modele.Partie.FirstOrDefault(p => p.id_partie == idPartie);
@@ -64,8 +64,26 @@ namespace Risk
                 }
                 partie.New_Monde = monde;
                 Label_nom_monde.Text = partie.New_Monde.nom_new_monde;
-            } 
-            
+                partie.phase_partie = 0;
+            }
+
+            if (Label_phase.Text == "Fin de tour")
+            {
+                But_fin_de_tour.Visible = true;
+            }
+            else
+            {
+                But_fin_de_tour.Visible = false;
+            }
+
+            if (Label_phase.Text != "Fin de tour")
+            {
+                But_fin_de_phase.Visible = true;
+            }
+            else
+            {
+                But_fin_de_phase.Visible = false;
+            }
         }
         public void initialiser_carte_vide(int x_max, int y_max)
         {
@@ -89,7 +107,7 @@ namespace Risk
         }
         protected void Repeater1_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            // On passe dans cet évènement pour chaque element du repeater de premier niveau (celui qui est le plus en haut (Repeater1)
+            // On passe dans cet évènement pour chaque element du repeater de premier niveau (celui qui est le plus en haut (Repeater1))
             Repeater repeater2 = (Repeater)e.Item.FindControl("Repeater2");
 
             // Item représente l'instance du ItemTemplate associé à cet évènement (élément graphique)
@@ -106,7 +124,7 @@ namespace Risk
 
         protected void But_fin_de_tour_Click(object sender, EventArgs e)
         {
-
+            
         }
        
     }
