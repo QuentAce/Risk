@@ -18,13 +18,14 @@
         </EntityType>
         <EntityType Name="Joueur_has_Partie">
           <Key>
-            <PropertyRef Name="id_joueur" />
+            <PropertyRef Name="id_joueur1" />
+            <PropertyRef Name="id_joueur2" />
             <PropertyRef Name="id_partie" />
           </Key>
-          <Property Name="id_joueur" Type="int" Nullable="false" />
+          <Property Name="id_joueur1" Type="int" Nullable="false" />
+          <Property Name="id_joueur2" Type="int" Nullable="false" />
           <Property Name="id_partie" Type="int" Nullable="false" />
           <Property Name="JhP_flag" Type="int" />
-          <Property Name="JhP_ordre_de_jeu" Type="int" />
         </EntityType>
         <EntityType Name="New_Monde">
           <Key>
@@ -82,7 +83,7 @@
           <Property Name="id_zone_1" Type="int" Nullable="false" />
           <Property Name="id_zone_2" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="JhP_toJoueur">
+        <Association Name="JhP_toJoueur1">
           <End Role="Joueur" Type="Self.Joueur" Multiplicity="1" />
           <End Role="Joueur_has_Partie" Type="Self.Joueur_has_Partie" Multiplicity="*" />
           <ReferentialConstraint>
@@ -90,7 +91,19 @@
               <PropertyRef Name="id_joueur" />
             </Principal>
             <Dependent Role="Joueur_has_Partie">
+              <PropertyRef Name="id_joueur1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="JhP_toJoueur2">
+          <End Role="Joueur" Type="Self.Joueur" Multiplicity="1" />
+          <End Role="Joueur_has_Partie" Type="Self.Joueur_has_Partie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Joueur">
               <PropertyRef Name="id_joueur" />
+            </Principal>
+            <Dependent Role="Joueur_has_Partie">
+              <PropertyRef Name="id_joueur2" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -235,7 +248,11 @@
           <EntitySet Name="Utilisateur" EntityType="Self.Utilisateur" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Zone" EntityType="Self.Zone" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Zone_Contact" EntityType="Self.Zone_Contact" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="JhP_toJoueur" Association="Self.JhP_toJoueur">
+          <AssociationSet Name="JhP_toJoueur1" Association="Self.JhP_toJoueur1">
+            <End Role="Joueur" EntitySet="Joueur" />
+            <End Role="Joueur_has_Partie" EntitySet="Joueur_has_Partie" />
+          </AssociationSet>
+          <AssociationSet Name="JhP_toJoueur2" Association="Self.JhP_toJoueur2">
             <End Role="Joueur" EntitySet="Joueur" />
             <End Role="Joueur_has_Partie" EntitySet="Joueur_has_Partie" />
           </AssociationSet>
@@ -304,11 +321,15 @@
           <NavigationProperty Name="Partie" Relationship="Self.P_toJ1" FromRole="Joueur" ToRole="Partie" />
           <NavigationProperty Name="Partie1" Relationship="Self.P_toJ2" FromRole="Joueur" ToRole="Partie" />
           <NavigationProperty Name="Unite" Relationship="Self.unite_toJoueur" FromRole="Joueur" ToRole="Unite" />
+          <NavigationProperty Name="Joueur_has_Partie2" Relationship="thomasModel.JhP_toJoueur1" FromRole="Joueur" ToRole="Joueur_has_Partie" />
+          <NavigationProperty Name="Joueur_has_Partie11" Relationship="thomasModel.JhP_toJoueur2" FromRole="Joueur" ToRole="Joueur_has_Partie" />
         </EntityType>
         <EntityType Name="Joueur_has_Partie">
           <Key>
             <PropertyRef Name="id_joueur" />
             <PropertyRef Name="id_partie" />
+            <PropertyRef Name="id_joueur1" />
+            <PropertyRef Name="id_joueur2" />
           </Key>
           <Property Name="id_joueur" Type="Int32" Nullable="false" />
           <Property Name="id_partie" Type="Int32" Nullable="false" />
@@ -317,6 +338,10 @@
           <NavigationProperty Name="Joueur" Relationship="Self.JhP_toJoueur" FromRole="Joueur_has_Partie" ToRole="Joueur" />
           <NavigationProperty Name="Joueur1" Relationship="Self.JhPFlag_toJoueur" FromRole="Joueur_has_Partie" ToRole="Joueur" />
           <NavigationProperty Name="Partie" Relationship="Self.JhP_toPartie" FromRole="Joueur_has_Partie" ToRole="Partie" />
+          <Property Name="id_joueur1" Type="Int32" Nullable="false" />
+          <Property Name="id_joueur2" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Joueur2" Relationship="thomasModel.JhP_toJoueur1" FromRole="Joueur_has_Partie" ToRole="Joueur" />
+          <NavigationProperty Name="Joueur11" Relationship="thomasModel.JhP_toJoueur2" FromRole="Joueur_has_Partie" ToRole="Joueur" />
         </EntityType>
         <EntityType Name="New_Monde">
           <Key>
@@ -543,6 +568,14 @@
             <End Role="New_Monde" EntitySet="New_Monde" />
             <End Role="Partie" EntitySet="Partie" />
           </AssociationSet>
+          <AssociationSet Name="JhP_toJoueur1" Association="thomasModel.JhP_toJoueur1">
+            <End Role="Joueur" EntitySet="Joueur" />
+            <End Role="Joueur_has_Partie" EntitySet="Joueur_has_Partie" />
+          </AssociationSet>
+          <AssociationSet Name="JhP_toJoueur2" Association="thomasModel.JhP_toJoueur2">
+            <End Role="Joueur" EntitySet="Joueur" />
+            <End Role="Joueur_has_Partie" EntitySet="Joueur_has_Partie" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="P_toM">
           <End Type="thomasModel.New_Monde" Role="New_Monde" Multiplicity="1" />
@@ -553,6 +586,30 @@
             </Principal>
             <Dependent Role="Partie">
               <PropertyRef Name="partie_tonew_monde" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="JhP_toJoueur1">
+          <End Type="thomasModel.Joueur" Role="Joueur" Multiplicity="1" />
+          <End Type="thomasModel.Joueur_has_Partie" Role="Joueur_has_Partie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Joueur">
+              <PropertyRef Name="id_joueur" />
+            </Principal>
+            <Dependent Role="Joueur_has_Partie">
+              <PropertyRef Name="id_joueur1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="JhP_toJoueur2">
+          <End Type="thomasModel.Joueur" Role="Joueur" Multiplicity="1" />
+          <End Type="thomasModel.Joueur_has_Partie" Role="Joueur_has_Partie" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Joueur">
+              <PropertyRef Name="id_joueur" />
+            </Principal>
+            <Dependent Role="Joueur_has_Partie">
+              <PropertyRef Name="id_joueur2" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -577,10 +634,10 @@
           <EntitySetMapping Name="Joueur_has_Partie">
             <EntityTypeMapping TypeName="thomasModel.Joueur_has_Partie">
               <MappingFragment StoreEntitySet="Joueur_has_Partie">
-                <ScalarProperty Name="id_joueur" ColumnName="id_joueur" />
+                <ScalarProperty Name="id_joueur2" ColumnName="id_joueur2" />
+                <ScalarProperty Name="id_joueur1" ColumnName="id_joueur1" />
                 <ScalarProperty Name="id_partie" ColumnName="id_partie" />
                 <ScalarProperty Name="JhP_flag" ColumnName="JhP_flag" />
-                <ScalarProperty Name="JhP_ordre_de_jeu" ColumnName="JhP_ordre_de_jeu" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

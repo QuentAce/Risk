@@ -28,6 +28,12 @@ namespace Risk
 
                     partie = modele.Partie.FirstOrDefault(p => p.id_partie == idPartie);
 
+                    Joueur_has_Partie jhp = new Joueur_has_Partie();
+                    jhp.id_joueur = (int)partie.partie_toJ1;
+                    jhp.id_partie = partie.id_partie;
+
+                   
+
                     int numero_monde = partie.partie_tonew_monde;
                     monde = modele.New_Monde.FirstOrDefault(m => m.id_new_monde == numero_monde);
 
@@ -97,6 +103,16 @@ namespace Risk
 
             repeater2.DataSource = ((LigneMonde)e.Item.DataItem).items;
             repeater2.DataBind();
+        }
+
+        protected void But_fin_de_phase_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void But_fin_de_tour_Click(object sender, EventArgs e)
+        {
+
         }
        
     }

@@ -5,13 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="22d9842c162242bd805a4b102171b00f" Name="Diagram1">
-        <EntityTypeShape EntityType="thomasModel.Joueur" Width="1.5" PointX="7.625" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="thomasModel.Joueur_has_Partie" Width="1.5" PointX="10" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="thomasModel.New_Monde" Width="1.5" PointX="7.5" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="thomasModel.Partie" Width="1.5" PointX="10.25" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="thomasModel.Unite" Width="1.5" PointX="16.125" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="thomasModel.Utilisateur" Width="1.5" PointX="13.125" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="thomasModel.Zone" Width="1.5" PointX="13.375" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="thomasModel.Joueur" Width="1.5" PointX="8" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="thomasModel.Joueur_has_Partie" Width="1.5" PointX="10.125" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="thomasModel.New_Monde" Width="1.5" PointX="7.625" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="thomasModel.Partie" Width="1.5" PointX="10.5" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="thomasModel.Unite" Width="1.5" PointX="16.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="thomasModel.Utilisateur" Width="1.5" PointX="13.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="thomasModel.Zone" Width="1.5" PointX="13.5" PointY="2.125" IsExpanded="true" />
         <AssociationConnector Association="thomasModel.JhP_toJoueur" ManuallyRouted="false" />
         <AssociationConnector Association="thomasModel.JhPFlag_toJoueur" ManuallyRouted="false" />
         <AssociationConnector Association="thomasModel.JtU" ManuallyRouted="false" />
@@ -23,6 +23,8 @@
         <AssociationConnector Association="thomasModel.unite_toZone" ManuallyRouted="false" />
         <AssociationConnector Association="thomasModel.Zone_Contact" ManuallyRouted="false" />
         <AssociationConnector Association="thomasModel.P_toM" />
+        <AssociationConnector Association="thomasModel.JhP_toJoueur1" />
+        <AssociationConnector Association="thomasModel.JhP_toJoueur2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
