@@ -19,7 +19,7 @@ namespace Risk
 
                 if (user != null)
                 {
-                    using (thomasEntities2 modele = new thomasEntities2())
+                    using (thomasEntities3 modele = new thomasEntities3())
                     {
                         jo = modele.Joueur.FirstOrDefault(j => j.joueur_toUtilisateur == user.id_utilisateur);
                     }
@@ -35,7 +35,7 @@ namespace Risk
                 Response.Redirect("default.aspx");
             }
 
-            using (thomasEntities2 modele = new thomasEntities2())
+            using (thomasEntities3 modele = new thomasEntities3())
             {
                 if (!IsPostBack)
                 {
@@ -63,7 +63,7 @@ namespace Risk
         {
             if (TextBox_pseudo.Text.Length <= 25 && TextBox_pseudo.Text.Length >=5)
             {
-                using (thomasEntities2 modele = new thomasEntities2())
+                using (thomasEntities3 modele = new thomasEntities3())
                 {
                     if (modele.Joueur.FirstOrDefault(u => u.pseudo_joueur == TextBox_pseudo.Text) != null)
                     {
@@ -93,12 +93,11 @@ namespace Risk
 
         protected void Button_rejoindre_partie_Click(object sender, EventArgs e)
         {
-            using (thomasEntities2 modele = new thomasEntities2())
+            using (thomasEntities3 modele = new thomasEntities3())
             {
                 int numPartie = int.Parse(ListBox_Partie.SelectedItem.Value);
                 Partie join_partie = modele.Partie.FirstOrDefault(p => p.id_partie == numPartie );
                 join_partie.partie_toJ2 = jo.id_joueur;
-                join_partie.phase_partie = 0;
                 join_partie.etat_partie = "en cours";
                 modele.SaveChanges();
                 Session["partie"] = join_partie.id_partie;

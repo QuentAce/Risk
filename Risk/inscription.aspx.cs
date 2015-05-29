@@ -16,7 +16,7 @@ namespace Risk
 
         protected void Button_inscription_Click(object sender, EventArgs e)
         {
-            using (thomasEntities2 modele = new thomasEntities2())
+            using (thomasEntities3 modele = new thomasEntities3())
             { 
                 if (TextBox_Login.Text == "")
                 {

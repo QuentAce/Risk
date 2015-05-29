@@ -15,7 +15,7 @@ namespace Risk
         public void charger_liste_monde()
         {
             ListBox_monde_dispo.Items.Clear();
-            using (thomasEntities2 modele = new thomasEntities2())
+            using (thomasEntities3 modele = new thomasEntities3())
                 {
                     foreach (New_Monde m in modele.New_Monde.Where(m => m.nom_new_monde != null))
                     {
@@ -108,7 +108,7 @@ namespace Risk
             }
             else
             {
-                using (thomasEntities2 modele = new thomasEntities2())
+                using (thomasEntities3 modele = new thomasEntities3())
                 {
                     New_Monde monde = new New_Monde();
                     monde.nom_new_monde = TextBox_nom_monde.Text;
@@ -147,7 +147,7 @@ namespace Risk
         {
 
             New_Monde monde = new New_Monde();
-            using (thomasEntities2 modele = new thomasEntities2())
+            using (thomasEntities3 modele = new thomasEntities3())
             {
                 int numero_monde = int.Parse(ListBox_monde_dispo.SelectedItem.Value);
                 monde = modele.New_Monde.FirstOrDefault(m => m.id_new_monde == numero_monde);
@@ -185,7 +185,7 @@ namespace Risk
 
         protected void Button_lancer_partie_Click(object sender, EventArgs e)
         {
-            using (thomasEntities2 modele = new thomasEntities2())
+            using (thomasEntities3 modele = new thomasEntities3())
             {
 
                 Partie partie = new Partie();
@@ -193,6 +193,7 @@ namespace Risk
                 partie.partie_toJ1 = j1.id_joueur;
                 partie.nom_partie = TextBox_nom_partie.Text;
                 partie.partie_tonew_monde = int.Parse(ListBox_monde_dispo.SelectedItem.Value);
+                partie.phase_partie = 0;
                 modele.Partie.Add(partie);
                 modele.SaveChanges();
 
