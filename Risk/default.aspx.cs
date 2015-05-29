@@ -16,7 +16,8 @@ namespace Risk
 
         protected void Button_ok_Click(object sender, EventArgs e)
         {
-            using (thomasEntities1 modele = new thomasEntities1()) {
+            using (thomasEntities2 modele = new thomasEntities2())
+            {
                 Utilisateur utilisateur = modele.Utilisateur.ToList().FirstOrDefault(u => u.login_utilisateur == TextBox_login.Text && u.motdepasse_utilisateur == TextBox_mdp.Text);
 
                 if (utilisateur == null)

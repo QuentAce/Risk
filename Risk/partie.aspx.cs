@@ -13,6 +13,10 @@ namespace Risk
         {
             int idPartie ;
             Partie partie;
+            Joueur_has_Partie jhp;
+
+            string[] nom_phase = { "Sélection de la zone de départ", "Renfort", "Déplacement / Attaque", "Fin de tour" };
+
 
             if (Session["partie"] == null)
             {
@@ -23,16 +27,10 @@ namespace Risk
                 idPartie = (int)Session["partie"];
                 
                 New_Monde monde = new New_Monde();
-                using (thomasEntities1 modele = new thomasEntities1())
+                using (thomasEntities2 modele = new thomasEntities2())
                 {
 
                     partie = modele.Partie.FirstOrDefault(p => p.id_partie == idPartie);
-
-                    Joueur_has_Partie jhp = new Joueur_has_Partie();
-                    jhp.id_joueur = (int)partie.partie_toJ1;
-                    jhp.id_partie = partie.id_partie;
-
-                   
 
                     int numero_monde = partie.partie_tonew_monde;
                     monde = modele.New_Monde.FirstOrDefault(m => m.id_new_monde == numero_monde);
@@ -70,6 +68,33 @@ namespace Risk
                 }
                 partie.New_Monde = monde;
                 Label_nom_monde.Text = partie.New_Monde.nom_new_monde;
+                Label_phase.Text = nom_phase[((int)partie.phase_partie)];
+
+                Random rand = new Random();
+                int jet_j1 = rand.Next(1, 1000);
+                int jet_j2 = rand.Next(1, 1000);
+
+                
+
+                using (thomasEntities2 modele = new thomasEntities2())
+                {
+                    jhp = new Joueur_has_Partie();
+                    jhp.id_joueur1 = partie.Joueur.id_joueur;
+                    jhp.id_joueur2 = partie.Joueur1.id_joueur;
+                    jhp.id_partie = partie.id_partie;
+                    if (jet_j1 < jet_j2)
+                    {
+                        jhp.JhP_flag = partie.Joueur1.id_joueur;
+                    }
+                    else if (jet_j1 > jet_j2)
+                    {
+                        jhp.JhP_flag = partie.Joueur.id_joueur;
+                    }
+                    modele.Joueur_has_Partie.Add(jhp);
+                    modele.SaveChanges();
+                }
+
+                Label_joueur.Text = jhp.JhP_flag.ToString();
             } 
             
         }
@@ -107,7 +132,7 @@ namespace Risk
 
         protected void But_fin_de_phase_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         protected void But_fin_de_tour_Click(object sender, EventArgs e)
