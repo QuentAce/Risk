@@ -71,6 +71,7 @@
     <Content Include="privee.aspx" />
     <Content Include="risk_accueil.aspx" />
     <Content Include="test.aspx" />
+    <Content Include="testmulti.aspx" />
     <Content Include="toolkit.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -148,6 +149,13 @@
     <Compile Include="test.aspx.designer.cs">
       <DependentUpon>test.aspx</DependentUpon>
     </Compile>
+    <Compile Include="testmulti.aspx.cs">
+      <DependentUpon>testmulti.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="testmulti.aspx.designer.cs">
+      <DependentUpon>testmulti.aspx</DependentUpon>
+    </Compile>
     <Compile Include="toolkit.aspx.cs">
       <DependentUpon>toolkit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -184,6 +192,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\test.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

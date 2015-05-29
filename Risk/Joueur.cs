@@ -18,6 +18,7 @@ namespace Risk
         {
             this.Joueur_has_Partie = new HashSet<Joueur_has_Partie>();
             this.Joueur_has_Partie1 = new HashSet<Joueur_has_Partie>();
+            this.Joueur_has_Partie2 = new HashSet<Joueur_has_Partie>();
             this.Partie = new HashSet<Partie>();
             this.Partie1 = new HashSet<Partie>();
             this.Unite = new HashSet<Unite>();
@@ -32,6 +33,7 @@ namespace Risk
     
         public virtual ICollection<Joueur_has_Partie> Joueur_has_Partie { get; set; }
         public virtual ICollection<Joueur_has_Partie> Joueur_has_Partie1 { get; set; }
+        public virtual ICollection<Joueur_has_Partie> Joueur_has_Partie2 { get; set; }
         public virtual Utilisateur Utilisateur { get; set; }
         public virtual ICollection<Partie> Partie { get; set; }
         public virtual ICollection<Partie> Partie1 { get; set; }

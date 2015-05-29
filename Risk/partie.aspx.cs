@@ -9,15 +9,10 @@ namespace Risk
 {
     public partial class Partie1 : System.Web.UI.Page
     {
-
-        int num_tour = 0;
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            int idPartie;
+            int idPartie ;
             Partie partie;
-
-            
 
             if (Session["partie"] == null)
             {
@@ -26,18 +21,20 @@ namespace Risk
             else
             {
                 idPartie = (int)Session["partie"];
+                
                 New_Monde monde = new New_Monde();
                 using (thomasEntities1 modele = new thomasEntities1())
                 {
 
                     partie = modele.Partie.FirstOrDefault(p => p.id_partie == idPartie);
 
-
                     int numero_monde = partie.partie_tonew_monde;
                     monde = modele.New_Monde.FirstOrDefault(m => m.id_new_monde == numero_monde);
 
                     int xmax = monde.Zone.Max(m => m.coordonneesX_zone) + 1;
                     int ymax = monde.Zone.Max(m => m.coordonneesY_zone) + 1;
+
+                    
 
                     initialiser_carte_vide(xmax, ymax);
 
@@ -65,8 +62,10 @@ namespace Risk
                     }
 
                 }
-            }
-
+                partie.New_Monde = monde;
+                Label_nom_monde.Text = partie.New_Monde.nom_new_monde;
+            } 
+            
         }
         public void initialiser_carte_vide(int x_max, int y_max)
         {
@@ -88,15 +87,27 @@ namespace Risk
             Repeater1.DataSource = lignes;
             Repeater1.DataBind();
         }
+        protected void Repeater1_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            // On passe dans cet évènement pour chaque element du repeater de premier niveau (celui qui est le plus en haut (Repeater1)
+            Repeater repeater2 = (Repeater)e.Item.FindControl("Repeater2");
+
+            // Item représente l'instance du ItemTemplate associé à cet évènement (élément graphique)
+            // La donnée associée est dans Item.DataItem
+
+            repeater2.DataSource = ((LigneMonde)e.Item.DataItem).items;
+            repeater2.DataBind();
+        }
+
+        protected void But_fin_de_phase_Click(object sender, EventArgs e)
+        {
+            
+        }
 
         protected void But_fin_de_tour_Click(object sender, EventArgs e)
         {
-            
-            Label_num_tour.Text = num_tour.ToString();
-            num_tour++;
-            Label_num_tour.Text = num_tour.ToString();
+
         }
-
-
+       
     }
 }

@@ -14,13 +14,14 @@ namespace Risk
     
     public partial class Joueur_has_Partie
     {
-        public int id_joueur { get; set; }
+        public int id_joueur1 { get; set; }
+        public int id_joueur2 { get; set; }
         public int id_partie { get; set; }
         public Nullable<int> JhP_flag { get; set; }
-        public Nullable<int> JhP_ordre_de_jeu { get; set; }
     
         public virtual Joueur Joueur { get; set; }
         public virtual Joueur Joueur1 { get; set; }
+        public virtual Joueur Joueur2 { get; set; }
         public virtual Partie Partie { get; set; }
     }
 }

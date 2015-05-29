@@ -31,62 +31,64 @@
         }
 
         table.jeu, table.jeu tr, table.jeu td {
-              margin:auto;
+            margin:auto;
             padding: 0 0 0 0;
         }
-        
 
     </style>
 </head>
 <body>
+
     <form id="form1" runat="server">
-        <div>
-    <div id="panel">
+        
+    <div>
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-        <asp:UpdatePanel ID="UpdatePanel_Partie" runat="server">
-            <ContentTemplate>
-                <table border="1">
-                    <tr>
-                        <td id="info_partie">
-                            <asp:Label ID="Label_nom_monde_fixe" runat="server" Text="Nom du Monde : "></asp:Label>
-                            <asp:Label ID="Label_nom_monde" runat="server" Text=""></asp:Label> <br />
-                            <asp:Label ID="Label_num_tour_fixe" runat="server" Text="Tour n° : "></asp:Label>
-                            <asp:Label ID="Label_num_tour" runat="server" Text=""></asp:Label> <br />
-                            <asp:Label ID="Label_joueur_fixe" runat="server" Text="Joueur : "></asp:Label>
-                            <asp:Label ID="Label_joueur" runat="server" Text=""></asp:Label> <br />
-                            <asp:Label ID="Label_phase_fixe" runat="server" Text="Phase : "></asp:Label>
-                            <asp:Label ID="Label_phase" runat="server" Text=""></asp:Label> <br />
+        <div id="panel">
+        
+            <asp:UpdatePanel ID="UpdatePanel_Partie" runat="server">
+                <ContentTemplate>
+                    <table border="1">
+                        <tr>
+                            <td id="info_partie">
+                                <asp:Label ID="Label_nom_monde_fixe" runat="server" Text="Nom du Monde : "></asp:Label>
+                                <asp:Label ID="Label_nom_monde" runat="server" Text=""></asp:Label> <br />
+                                <asp:Label ID="Label_num_tour_fixe" runat="server" Text="Tour n° : "></asp:Label>
+                                <asp:Label ID="Label_num_tour" runat="server" Text=""></asp:Label> <br />
+                                <asp:Label ID="Label_joueur_fixe" runat="server" Text="Joueur : "></asp:Label>
+                                <asp:Label ID="Label_joueur" runat="server" Text=""></asp:Label> <br />
+                                <asp:Label ID="Label_phase_fixe" runat="server" Text="Phase : "></asp:Label>
+                                <asp:Label ID="Label_phase" runat="server" Text=""></asp:Label> <br />
+                            </td>
+                        </tr>
+                    </table>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+
+        <div id="corps">
+
+            <table class="jeu">
+            <asp:Repeater ID="Repeater1" runat="server" OnItemDataBound="Repeater1_ItemDataBound">
+            <ItemTemplate>
+                <tr>
+                    <asp:Repeater ID="Repeater2" runat="server">
+                    <ItemTemplate>
+                        <td>
+                            <asp:Button ID="Button1" runat="server" Text="" CssClass='<%# DataBinder.Eval(Container.DataItem,"style_css")  %>' />
                         </td>
-                    </tr>
-                </table>
-            </ContentTemplate>
-        </asp:UpdatePanel>
-    </div>
+                    </ItemTemplate>
+                    </asp:Repeater>
+                </tr>
+            </ItemTemplate>
+            </asp:Repeater>
+            </table>
 
-    <div id="corps">
+        </div>
 
-        <table class="jeu">
-        <asp:Repeater ID="Repeater1" runat="server">
-        <ItemTemplate>
-            <tr>
-                <asp:Repeater ID="Repeater2" runat="server">
-                <ItemTemplate>
-                    <td>
-                        <asp:Button ID="Button1" runat="server" Text="" CssClass='<%# DataBinder.Eval(Container.DataItem,"style_css")  %>' />
-                    </td>
-                </ItemTemplate>
-                </asp:Repeater>
-            </tr>
-        </ItemTemplate>
-        </asp:Repeater>
-        </table>
-
-    </div>
-
-    <div id="pied">
-        <asp:Button ID="But_fin_de_phase" runat="server" Text="Fin de phase" Width="150px" />
-        <asp:Button ID="But_fin_de_tour" runat="server" Text="Fin de tour" Width="150px" OnClick="But_fin_de_tour_Click" />
-    </div>
+        <div id="pied">
+            <asp:Button ID="But_fin_de_phase" runat="server" Text="Fin de phase" Width="150px" OnClick="But_fin_de_phase_Click" />
+            <asp:Button ID="But_fin_de_tour" runat="server" Text="Fin de tour" Width="150px" OnClick="But_fin_de_tour_Click" />
+        </div>
     </div>
     </form>
 </body>
