@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="thomasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="thomasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Joueur">
           <Key>
             <PropertyRef Name="id_joueur" />
@@ -115,18 +115,6 @@
             </Principal>
             <Dependent Role="Joueur_has_Partie">
               <PropertyRef Name="id_partie" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="JhPFlag_toJoueur">
-          <End Role="Joueur" Type="Self.Joueur" Multiplicity="0..1" />
-          <End Role="Joueur_has_Partie" Type="Self.Joueur_has_Partie" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Joueur">
-              <PropertyRef Name="id_joueur" />
-            </Principal>
-            <Dependent Role="Joueur_has_Partie">
-              <PropertyRef Name="JhP_flag" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -259,10 +247,6 @@
             <End Role="Partie" EntitySet="Partie" />
             <End Role="Joueur_has_Partie" EntitySet="Joueur_has_Partie" />
           </AssociationSet>
-          <AssociationSet Name="JhPFlag_toJoueur" Association="Self.JhPFlag_toJoueur">
-            <End Role="Joueur" EntitySet="Joueur" />
-            <End Role="Joueur_has_Partie" EntitySet="Joueur_has_Partie" />
-          </AssociationSet>
           <AssociationSet Name="JtU" Association="Self.JtU">
             <End Role="Utilisateur" EntitySet="Utilisateur" />
             <End Role="Joueur" EntitySet="Joueur" />
@@ -300,8 +284,7 @@
             <End Role="Zone" EntitySet="Zone" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="thomasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">

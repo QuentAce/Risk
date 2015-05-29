@@ -92,10 +92,12 @@ namespace Risk
             if (btn.CssClass=="eau")
             {
                 btn.CssClass = "terrain";
+                btn.Text = "2";
             }
             else
             {
                 btn.CssClass = "eau";
+                btn.Text = "";
             }
         }
 
@@ -173,6 +175,7 @@ namespace Risk
                         else
                         {
                             bouton.CssClass = "terrain";
+                            bouton.Text = "2";
                         }
 
                         x++;
@@ -196,6 +199,16 @@ namespace Risk
                 partie.phase_partie = 0;
                 modele.Partie.Add(partie);
                 modele.SaveChanges();
+
+
+                Joueur_has_Partie jhp = new Joueur_has_Partie();
+                jhp.id_partie = partie.id_partie;
+                jhp.id_joueur1 = j1.id_joueur;
+                jhp.id_joueur2 = null;
+                jhp.JhP_flag = 0;
+                modele.Joueur_has_Partie.Add(jhp);
+                modele.SaveChanges();
+
 
                 Session["partie"] = partie.id_partie;
                 Response.Redirect("partie.aspx");
