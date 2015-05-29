@@ -98,7 +98,6 @@ namespace Risk
                 int numPartie = int.Parse(ListBox_Partie.SelectedItem.Value);
                 Partie join_partie = modele.Partie.FirstOrDefault(p => p.id_partie == numPartie );
                 join_partie.partie_toJ2 = jo.id_joueur;
-                join_partie.phase_partie = 0;
                 join_partie.etat_partie = "en cours";
                 modele.SaveChanges();
                 Session["partie"] = join_partie.id_partie;

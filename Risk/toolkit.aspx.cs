@@ -39,7 +39,6 @@ namespace Risk
                         charger_liste_monde();
                     }
             }
-            
         }
 
         protected void Button_generer_Click(object sender, EventArgs e)
@@ -92,10 +91,12 @@ namespace Risk
             if (btn.CssClass=="eau")
             {
                 btn.CssClass = "terrain";
+                btn.Text = "2";
             }
             else
             {
                 btn.CssClass = "eau";
+                btn.Text = "";
             }
         }
 
@@ -173,6 +174,7 @@ namespace Risk
                         else
                         {
                             bouton.CssClass = "terrain";
+                            bouton.Text = "2";
                         }
 
                         x++;
@@ -193,6 +195,7 @@ namespace Risk
                 partie.partie_toJ1 = j1.id_joueur;
                 partie.nom_partie = TextBox_nom_partie.Text;
                 partie.partie_tonew_monde = int.Parse(ListBox_monde_dispo.SelectedItem.Value);
+                partie.phase_partie = 0;
                 modele.Partie.Add(partie);
                 modele.SaveChanges();
 

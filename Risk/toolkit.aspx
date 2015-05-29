@@ -9,7 +9,7 @@
     <style type="text/css">
 
         .terrain { background-color:#BD8D46}
-        .eau { background-color:#0000AA}
+        .eau { background-color:#000}
         
         .terrain,.eau {
             width:30px;
@@ -53,7 +53,7 @@
                 <asp:Repeater ID="Repeater2" runat="server">
                 <ItemTemplate>
                     <td>
-                        <asp:Button ID="Button1" runat="server" Text="" CssClass='<%# DataBinder.Eval(Container.DataItem,"style_css")  %>' OnClick="Button1_Click" />
+                        <asp:Button ID="Button1" runat="server" Text="2" CssClass='<%# DataBinder.Eval(Container.DataItem,"style_css")  %>' OnClick="Button1_Click" />
                     </td>
                 </ItemTemplate>
                 </asp:Repeater>
