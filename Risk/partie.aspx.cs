@@ -13,6 +13,10 @@ namespace Risk
         {
             int idPartie ;
             Partie partie;
+            Joueur_has_Partie jhp;
+
+            string[] nom_phase = { "Sélection de la zone de départ", "Renfort", "Déplacement / Attaque", "Fin de tour" };
+
 
             if (Session["partie"] == null)
             {
@@ -23,7 +27,7 @@ namespace Risk
                 idPartie = (int)Session["partie"];
                 
                 New_Monde monde = new New_Monde();
-                using (thomasEntities2 modele = new thomasEntities2())
+                using (thomasEntities3 modele = new thomasEntities3())
                 {
 
                     partie = modele.Partie.FirstOrDefault(p => p.id_partie == idPartie);
@@ -64,9 +68,34 @@ namespace Risk
                 }
                 partie.New_Monde = monde;
                 Label_nom_monde.Text = partie.New_Monde.nom_new_monde;
-                partie.phase_partie = 0;
-            }
+                Label_phase.Text = nom_phase[((int)partie.phase_partie)];
 
+                Random rand = new Random();
+                int jet_j1 = rand.Next(1, 1000);
+                int jet_j2 = rand.Next(1, 1000);
+
+
+
+                using (thomasEntities3 modele = new thomasEntities3())
+                {
+                    jhp = new Joueur_has_Partie();
+                    jhp.id_joueur1 = partie.Joueur.id_joueur;
+                    jhp.id_joueur2 = partie.Joueur1.id_joueur;
+                    jhp.id_partie = partie.id_partie;
+                    if (jet_j1 < jet_j2)
+                    {
+                        jhp.JhP_flag = partie.Joueur1.id_joueur;
+                    }
+                    else if (jet_j1 > jet_j2)
+                    {
+                        jhp.JhP_flag = partie.Joueur.id_joueur;
+                    }
+                    modele.Joueur_has_Partie.Add(jhp);
+                    modele.SaveChanges();
+                }
+
+                Label_joueur.Text = jhp.JhP_flag.ToString();
+            }
             if (Label_phase.Text == "Fin de tour")
             {
                 But_fin_de_tour.Visible = true;
@@ -84,6 +113,7 @@ namespace Risk
             {
                 But_fin_de_phase.Visible = false;
             }
+            
         }
         public void initialiser_carte_vide(int x_max, int y_max)
         {
@@ -107,7 +137,7 @@ namespace Risk
         }
         protected void Repeater1_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            // On passe dans cet évènement pour chaque element du repeater de premier niveau (celui qui est le plus en haut (Repeater1))
+            // On passe dans cet évènement pour chaque element du repeater de premier niveau (celui qui est le plus en haut (Repeater1)
             Repeater repeater2 = (Repeater)e.Item.FindControl("Repeater2");
 
             // Item représente l'instance du ItemTemplate associé à cet évènement (élément graphique)
@@ -124,7 +154,7 @@ namespace Risk
 
         protected void But_fin_de_tour_Click(object sender, EventArgs e)
         {
-            
+
         }
        
     }

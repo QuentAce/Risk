@@ -12,7 +12,7 @@ namespace Risk
         //Créer chaque zone et l'ajoute dans une liste/bdd
         public void creerZone()
         {
-            using (thomasEntities2 modele = new thomasEntities2())
+            using (thomasEntities3 modele = new thomasEntities3())
             {
                 for (int y = 1; y <= 5; y++)
                 {
@@ -43,7 +43,7 @@ namespace Risk
                 int? yplus1 = z.coordonneesY_zone + 1;
                 int? ymoins1 = z.coordonneesY_zone - 1;
 
-                using (thomasEntities2 modele = new thomasEntities2())
+                using (thomasEntities3 modele = new thomasEntities3())
                 {
                     //Récupere les zones qui correspondent aux coordonnées
                     IQueryable<Zone> zone_contatct = from requete_zone in modele.Zone

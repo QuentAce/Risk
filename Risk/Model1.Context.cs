@@ -13,10 +13,10 @@ namespace Risk
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class thomasEntities2 : DbContext
+    public partial class thomasEntities3 : DbContext
     {
-        public thomasEntities2()
-            : base("name=thomasEntities2")
+        public thomasEntities3()
+            : base("name=thomasEntities3")
         {
         }
     
