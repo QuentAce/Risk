@@ -20,7 +20,7 @@ namespace Risk
 
             string[] nom_phase = { "Sélection de la zone de départ", "Renfort", "Déplacement / Attaque", "Fin de tour" };
 
-
+          
             if (Session["partie"] == null)
             {
                 Response.Redirect("risk_accueil.aspx");
@@ -75,12 +75,32 @@ namespace Risk
                 Label_nom_monde.Text = partie.New_Monde.nom_new_monde;
                 Label_phase.Text = nom_phase[0];
 
-
+                if (Label_phase.Text == "Sélection de la zone de départ" || Label_phase.Text == "Renfort" || Label_phase.Text == "Déplacement / Attaque" || Label_phase.Text == "Fin de tour")
+                {
+                    Label_attente.Visible = false;
+                }
                 //if (partie.phase_partie == 0)
                 //{
                 //    Random rand = new Random();
                 //    int jet_j1 = rand.Next(1, 1000);
                 //    int jet_j2 = rand.Next(1, 1000);
+
+                using (thomasEntities3 modele = new thomasEntities3())
+                {
+                        jhp = modele.Joueur_has_Partie.FirstOrDefault(j => j.id_partie == partie.id_partie && j.id_joueur1 == partie.partie_toJ1);
+                        //jhp.id_joueur1 = partie.partie_toJ1;
+                        jhp.id_joueur2 = partie.partie_toJ2;
+                        //if (jet_j1 < jet_j2)
+                        //{
+                        //    jhp.JhP_flag = partie.Joueur1.id_joueur;
+                        //}
+                        //else if (jet_j1 > jet_j2)
+                        //{
+                        //    jhp.JhP_flag = partie.Joueur.id_joueur;
+                        //}
+                        //modele.Joueur_has_Partie.Add(jhp);
+                        modele.SaveChanges();
+                }
 
                 //    using (thomasEntities3 modele = new thomasEntities3())
                 //    {
@@ -112,6 +132,8 @@ namespace Risk
                 //Label_joueur.Text = jhp.JhP_flag.ToString();
                
             }
+
+            
 
             if (Label_phase.Text == "Fin de tour")
             {
@@ -158,7 +180,13 @@ namespace Risk
 
         protected void But_fin_de_phase_Click(object sender, EventArgs e)
         {
-            
+            if (Label_phase.Text == "Renfort") 
+            {
+                Label_phase.Text = "Déplacement / Attaque";
+            } if (Label_phase.Text == "Déplacement / Attaque")
+            {
+                Label_phase.Text = "Fin de tour";
+            }
         }
 
         protected void But_fin_de_tour_Click(object sender, EventArgs e)

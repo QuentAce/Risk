@@ -22,6 +22,8 @@
         }
         .terrain { background-color:#BD8D46}
         .eau { background-color:#000}
+        .j1 { background-color:#FFFF00}
+        .j1 { background-color:#FF3399}
         
         .terrain,.eau {
             width:30px;
@@ -76,7 +78,7 @@
                     <asp:Repeater ID="Repeater2" runat="server">
                     <ItemTemplate>
                         <td>
-                            <asp:Button ID="Button1" runat="server" Text="2" CssClass='<%# DataBinder.Eval(Container.DataItem,"style_css")  %>' />
+                            <asp:Button ID="Button1" runat="server" Text="2" CssClass='<%# DataBinder.Eval(Container.DataItem,"style_css")  %>' Onclick="Button1_Click"/>
                         </td>
                     </ItemTemplate>
                     </asp:Repeater>
