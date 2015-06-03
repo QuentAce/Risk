@@ -1,9 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="partie.aspx.cs" Inherits="Risk.Partie1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="partie.aspx.cs" Inherits="Risk.Partie1" EnableEventValidation="false"%>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    
     <title>Partie</title>
 
     <style type="text/css">
@@ -21,8 +22,10 @@
             padding: 0 0 0 0;
         }
         .terrain { background-color:#BD8D46}
-        .eau { background-color:#0000AA}
-        
+        .eau { background-color:#000000}
+        .j1 {background-color:#FF00DE}
+        .j2{background-color:#FFF300}
+
         .terrain,.eau {
             width:30px;
             height:30px;
@@ -74,7 +77,7 @@
                     <asp:Repeater ID="Repeater2" runat="server">
                     <ItemTemplate>
                         <td>
-                            <asp:Button ID="Button1" runat="server" Text="" CssClass='<%# DataBinder.Eval(Container.DataItem,"style_css")  %>' />
+                            <asp:Button ID="Button1" runat="server" Text="2" CssClass='<%# DataBinder.Eval(Container.DataItem,"style_css")  %>' OnClick="Button1_Click" />
                         </td>
                     </ItemTemplate>
                     </asp:Repeater>
