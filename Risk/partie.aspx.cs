@@ -16,7 +16,7 @@ namespace Risk
         Joueur j2;
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
 
             string[] nom_phase = { "Sélection de la zone de départ", "Renfort", "Déplacement / Attaque", "Fin de tour" };
 
@@ -57,10 +57,12 @@ namespace Risk
                             if (monde.Zone.FirstOrDefault(z => z.coordonneesX_zone == x && z.coordonneesY_zone == y) == null)
                             {
                                 bouton.CssClass = "eau";
+                                bouton.Text = "";
                             }
                             else
                             {
                                 bouton.CssClass = "terrain";
+                                bouton.Text = "2";
                             }
 
                             x++;
@@ -109,8 +111,18 @@ namespace Risk
 
                 //Label_joueur.Text = jhp.JhP_flag.ToString();
                
-            } 
-            
+            }
+
+            if (Label_phase.Text == "Fin de tour")
+            {
+                But_fin_de_phase.Visible = false;
+                But_fin_de_tour.Visible = true;
+            }
+            else
+            {
+                But_fin_de_phase.Visible = true;
+                But_fin_de_tour.Visible = false;
+            }
         }
         public void initialiser_carte_vide(int x_max, int y_max)
         {
@@ -158,16 +170,7 @@ namespace Risk
         {
             Button btn = (Button)sender;
 
-            //if (partie.phase_partie)
-            //{
-            //    btn.CssClass = "terrain";
-            //    btn.Text = "2";
-            //}
-            //else
-            //{
-            //    btn.CssClass = "eau";
-            //    btn.Text = "";
-            //}
+            
         }
     }
 }

@@ -21,7 +21,7 @@
             padding: 0 0 0 0;
         }
         .terrain { background-color:#BD8D46}
-        .eau { background-color:#0000AA}
+        .eau { background-color:#000}
         
         .terrain,.eau {
             width:30px;
@@ -55,7 +55,7 @@
                                 <asp:Label ID="Label_joueur_fixe" runat="server" Text="Joueur : "></asp:Label>
                                 <asp:Label ID="Label_joueur" runat="server" Text=""></asp:Label> <br />
                                 <asp:Label ID="Label_phase_fixe" runat="server" Text="Phase : "></asp:Label>
-                                <asp:Label ID="Label_phase" runat="server" Text=""></asp:Label> <br />
+                                <asp:Label ID="Label_phase" runat="server" Text=""></asp:Label>
                             </td>
                         </tr>
                     </table>
@@ -76,7 +76,7 @@
                     <asp:Repeater ID="Repeater2" runat="server">
                     <ItemTemplate>
                         <td>
-                            <asp:Button ID="Button1" runat="server" Text="" CssClass='<%# DataBinder.Eval(Container.DataItem,"style_css")  %>' />
+                            <asp:Button ID="Button1" runat="server" Text="2" CssClass='<%# DataBinder.Eval(Container.DataItem,"style_css")  %>' />
                         </td>
                     </ItemTemplate>
                     </asp:Repeater>
@@ -97,6 +97,7 @@
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <ContentTemplate>
                     <asp:Button ID="But_fin_de_phase" runat="server" Text="Fin de phase" Width="150px" OnClick="But_fin_de_phase_Click" />
+                    <asp:Label ID="Label_attente" runat="server" Text="En attente de la fin de tour de votre adversaire !"></asp:Label>
                     <asp:Button ID="But_fin_de_tour" runat="server" Text="Fin de tour" Width="150px" OnClick="But_fin_de_tour_Click" />
                 </ContentTemplate>
             </asp:UpdatePanel>
