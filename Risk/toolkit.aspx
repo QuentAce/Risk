@@ -9,7 +9,7 @@
     <style type="text/css">
 
         .terrain { background-color:#BD8D46}
-        .eau { background-color:#000000}
+        .eau { background-color:#000}
         
         .terrain,.eau {
             width:30px;

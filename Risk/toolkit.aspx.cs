@@ -39,7 +39,6 @@ namespace Risk
                         charger_liste_monde();
                     }
             }
-            
         }
 
         protected void Button_generer_Click(object sender, EventArgs e)

@@ -9,14 +9,14 @@ namespace Risk
 {
     public partial class Partie1 : System.Web.UI.Page
     {
-        public int idPartie;
-        public Partie partie;
-        public Joueur_has_Partie jhp;
-        public Joueur j1;
-        public Joueur j2;
+        int idPartie;
+        Partie partie;
+        Joueur_has_Partie jhp;
+        Joueur j1;
+        Joueur j2;
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
 
             string[] nom_phase = { "Sélection de la zone de départ", "Renfort", "Déplacement / Attaque", "Fin de tour" };
 
@@ -35,9 +35,7 @@ namespace Risk
                 {
 
                     partie = modele.Partie.FirstOrDefault(p => p.id_partie == idPartie);
-
-
-                    int? idj1 = partie.partie_toJ1;
+                    
 
                     int numero_monde = partie.partie_tonew_monde;
                     monde = modele.New_Monde.FirstOrDefault(m => m.id_new_monde == numero_monde);
@@ -59,10 +57,12 @@ namespace Risk
                             if (monde.Zone.FirstOrDefault(z => z.coordonneesX_zone == x && z.coordonneesY_zone == y) == null)
                             {
                                 bouton.CssClass = "eau";
+                                bouton.Text = "";
                             }
                             else
                             {
                                 bouton.CssClass = "terrain";
+                                bouton.Text = "2";
                             }
 
                             x++;
@@ -73,45 +73,56 @@ namespace Risk
                 }
                 partie.New_Monde = monde;
                 Label_nom_monde.Text = partie.New_Monde.nom_new_monde;
-                Label_phase.Text = nom_phase[(int)partie.phase_partie];
+                Label_phase.Text = nom_phase[0];
 
 
-                if (partie.phase_partie == 0)
-                {
-                    //Random rand = new Random();
-                    //int jet_j1 = rand.Next(1, 1000);
-                    //int jet_j2 = rand.Next(1, 1000);
+                //if (partie.phase_partie == 0)
+                //{
+                //    Random rand = new Random();
+                //    int jet_j1 = rand.Next(1, 1000);
+                //    int jet_j2 = rand.Next(1, 1000);
 
-                    using (thomasEntities3 modele = new thomasEntities3())
-                    {
-                        jhp = modele.Joueur_has_Partie.FirstOrDefault(j => j.id_partie == partie.id_partie && j.id_joueur1 == partie.partie_toJ1);
-                        //jhp.id_joueur1 = partie.partie_toJ1;
-                        jhp.id_joueur2 = partie.partie_toJ2;
-                        //if (jet_j1 < jet_j2)
-                        //{
-                        //    jhp.JhP_flag = partie.Joueur1.id_joueur;
-                        //}
-                        //else if (jet_j1 > jet_j2)
-                        //{
-                        //    jhp.JhP_flag = partie.Joueur.id_joueur;
-                        //}
-                        //modele.Joueur_has_Partie.Add(jhp);
-                        modele.SaveChanges();
-                    }
+                //    using (thomasEntities3 modele = new thomasEntities3())
+                //    {
+                //        jhp = new Joueur_has_Partie();
+                //        jhp.id_joueur1 = partie.partie_toJ1;
+                //        jhp.id_joueur2 = partie.partie_toJ2;
+                //        jhp.id_partie = partie.id_partie;
+                //        if (jet_j1 < jet_j2)
+                //        {
+                //            jhp.JhP_flag = partie.Joueur1.id_joueur;
+                //        }
+                //        else if (jet_j1 > jet_j2)
+                //        {
+                //            jhp.JhP_flag = partie.Joueur.id_joueur;
+                //        }
+                //        modele.Joueur_has_Partie.Add(jhp);
+                //        modele.SaveChanges();
+                //    }
 
-                }
+                //}
                 //else
                 //{
                 //    using (thomasEntities3 modele = new thomasEntities3())
                 //    {
-                //        jhp = modele.Joueur_has_Partie.FirstOrDefault(j => j.id_partie == partie.id_partie);
+                //        jhp = modele.Joueur_has_Partie.FirstOrDefault(j => j.id_partie == partie.id_partie);     
                 //    }
                 //}
 
-                Label_joueur.Text = jhp.JhP_flag.ToString();
+                //Label_joueur.Text = jhp.JhP_flag.ToString();
                
-            } 
-            
+            }
+
+            if (Label_phase.Text == "Fin de tour")
+            {
+                But_fin_de_phase.Visible = false;
+                But_fin_de_tour.Visible = true;
+            }
+            else
+            {
+                But_fin_de_phase.Visible = true;
+                But_fin_de_tour.Visible = false;
+            }
         }
         public void initialiser_carte_vide(int x_max, int y_max)
         {
@@ -159,27 +170,7 @@ namespace Risk
         {
             Button btn = (Button)sender;
 
- 
-            if (partie.phase_partie == 0)
-            {
-                if (jhp.JhP_flag == partie.partie_toJ1)
-                {
-                    btn.CssClass = "j1";
-                    btn.Text = "5";
-                    
-                }
-                else
-                {
-                    btn.CssClass = "j2";
-                    btn.Text = "5";
-                    
-                }
-                
-            }
-            else if (partie.phase_partie == 1)
-            {
-                
-            }
+            
         }
     }
 }
