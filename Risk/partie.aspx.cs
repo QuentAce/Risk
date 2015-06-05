@@ -79,6 +79,20 @@ namespace Risk
                 Label_nom_monde.Text = partie.New_Monde.nom_new_monde;
                 Label_phase.Text = nom_phase[(int)partie.phase_partie];
 
+                if (partie.phase_partie == 0)
+                {
+                    But_fin_de_phase.Text = "ok";
+                }
+                else if (partie.phase_partie == 1)
+                {
+                    But_fin_de_phase.Text = "ko";
+                }
+                
+
+                if (Label_phase.Text == "Sélection de la zone de départ" || Label_phase.Text == "Renfort" || Label_phase.Text == "Déplacement / Attaque" || Label_phase.Text == "Fin de tour")
+                {
+                    Label_attente.Visible = false;
+                }
 
                 //if (partie.phase_partie == 0)
                 //{
@@ -190,12 +204,66 @@ namespace Risk
 
         protected void But_fin_de_phase_Click(object sender, EventArgs e)
         {
-            
+            using(thomasEntities3 modele = new thomasEntities3()){
+
+                var pu = modele.Partie.FirstOrDefault(p => p.id_partie == partie.id_partie);
+                var jhpu = modele.Joueur_has_Partie.FirstOrDefault(jhu => jhu.id_joueur_has_partie == jhp.id_joueur_has_partie);
+
+                if (partie.phase_partie == 0)
+                {
+                    if (jhpu.JhP_flag == pu.partie_toJ1)
+                    {                   
+                            jhpu.JhP_flag = pu.partie_toJ2;
+                                                
+                    }
+                    else
+                    {                    
+                            jhpu.JhP_flag = pu.partie_toJ1;
+                            pu.phase_partie = 1;
+                                               
+                    }
+                }
+                else if (partie.phase_partie == 1)
+                {   
+                        pu.phase_partie = 2;                  
+                    
+                }
+                else if (partie.phase_partie == 2)
+                {
+                    pu.phase_partie = 3;
+                }
+                else if (partie.phase_partie == 3)
+                {
+                    pu.phase_partie = 1;
+                    jhpu.JhP_flag = partie.partie_toJ2;
+                }
+                modele.SaveChanges();
+            Response.Redirect("partie.aspx");
+            }
         }
 
         protected void But_fin_de_tour_Click(object sender, EventArgs e)
         {
+            using (thomasEntities3 modele = new thomasEntities3())
+            {
 
+                var pu = modele.Partie.FirstOrDefault(p => p.id_partie == partie.id_partie);
+                var jhpu = modele.Joueur_has_Partie.FirstOrDefault(jhu => jhu.id_joueur_has_partie == jhp.id_joueur_has_partie);
+
+                if (jhpu.JhP_flag == pu.partie_toJ1)
+                {
+                    pu.phase_partie = 1;
+                    jhpu.JhP_flag = partie.partie_toJ2;
+                }
+                else
+                {
+                    pu.phase_partie = 1;
+                    jhpu.JhP_flag = partie.partie_toJ1;
+                }
+                modele.SaveChanges();
+                Response.Redirect("partie.aspx");
+
+            }
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -216,12 +284,7 @@ namespace Risk
                 {
                     btn.CssClass = "j2";
                     btn.Text = "5";
-                    using (thomasEntities3 modele = new thomasEntities3())
-                    {
-                        jhp.JhP_flag = partie.partie_toJ1;
-                        partie.phase_partie = 1;
-                        modele.SaveChanges();
-                    }
+                    
                 }                
             }
             else if (partie.phase_partie ==1)
