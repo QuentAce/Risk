@@ -71,6 +71,8 @@ namespace Risk
                                     bouton.Text = "2";
                                 }
 
+                                bouton.CommandArgument = x.ToString() + "_" + y.ToString();
+
                                 x++;
                             }
                             y++;
@@ -266,6 +268,8 @@ namespace Risk
         protected void Button1_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
+
+            Page.Title = btn.CommandArgument;
 
             if (btn.CssClass != "eau")
             {
