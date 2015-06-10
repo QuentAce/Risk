@@ -9,15 +9,15 @@ namespace Risk
 {
     public partial class Partie1 : System.Web.UI.Page
     {
-        
-        int idPartie;
+
+
         Partie partie;
         Joueur_has_Partie jhp;
         Joueur j1;
         Joueur j2;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            int idPartie;
 
             string[] nom_phase = { "Sélection de la zone de départ", "Renfort", "Déplacement / Attaque", "Fin de tour" };
 
@@ -28,18 +28,18 @@ namespace Risk
             }
             else
             {
-                
+
                 idPartie = (int)Session["partie"];
-                
+
                 New_Monde monde = new New_Monde();
+
                 using (thomasEntities3 modele = new thomasEntities3())
                 {
 
                     partie = modele.Partie.FirstOrDefault(p => p.id_partie == idPartie);
                     j1 = modele.Joueur.FirstOrDefault(j => j.id_joueur == partie.partie_toJ1);
                     j2 = modele.Joueur.FirstOrDefault(j => j.id_joueur == partie.partie_toJ2);
-                    partie.Joueur = j1;
-                    partie.Joueur1 = j2;
+
 
                     int numero_monde = partie.partie_tonew_monde;
                     monde = modele.New_Monde.FirstOrDefault(m => m.id_new_monde == numero_monde);
@@ -47,47 +47,43 @@ namespace Risk
                     int xmax = monde.Zone.Max(m => m.coordonneesX_zone) + 1;
                     int ymax = monde.Zone.Max(m => m.coordonneesY_zone) + 1;
 
-                    initialiser_carte_vide(xmax, ymax);
-
-                    int y = 0;
-                    foreach (RepeaterItem ligne in Repeater1.Items)
+                    if (!Page.IsPostBack)
                     {
-                        Repeater repeater2 = (Repeater)ligne.FindControl("Repeater2");
-                        int x = 0;
-                        foreach (RepeaterItem item in repeater2.Items)
+                        initialiser_carte_vide(xmax, ymax);
+
+                        int y = 0;
+                        foreach (RepeaterItem ligne in Repeater1.Items)
                         {
-                            Button bouton = (Button)item.FindControl("Button1");
-
-                            if (monde.Zone.FirstOrDefault(z => z.coordonneesX_zone == x && z.coordonneesY_zone == y) == null)
+                            Repeater repeater2 = (Repeater)ligne.FindControl("Repeater2");
+                            int x = 0;
+                            foreach (RepeaterItem item in repeater2.Items)
                             {
-                                bouton.CssClass = "eau";
-                                bouton.Text = "";
-                            }
-                            else
-                            {
-                                bouton.CssClass = "terrain";
-                                bouton.Text = "2";
-                            }
+                                Button bouton = (Button)item.FindControl("Button1");
 
-                            x++;
+                                if (monde.Zone.FirstOrDefault(z => z.coordonneesX_zone == x && z.coordonneesY_zone == y) == null)
+                                {
+                                    bouton.CssClass = "eau";
+                                    bouton.Text = "";
+                                }
+                                else
+                                {
+                                    bouton.CssClass = "terrain";
+                                    bouton.Text = "2";
+                                }
+
+                                x++;
+                            }
+                            y++;
                         }
-                        y++;
+                        
                     }
-
+                    partie.New_Monde = monde;
                 }
-                partie.New_Monde = monde;
+
+
                 Label_nom_monde.Text = partie.New_Monde.nom_new_monde;
                 Label_phase.Text = nom_phase[(int)partie.phase_partie];
 
-                if (partie.phase_partie == 0)
-                {
-                    But_fin_de_phase.Text = "ok";
-                }
-                else if (partie.phase_partie == 1)
-                {
-                    But_fin_de_phase.Text = "ko";
-                }
-                
 
                 if (Label_phase.Text == "Sélection de la zone de départ" || Label_phase.Text == "Renfort" || Label_phase.Text == "Déplacement / Attaque" || Label_phase.Text == "Fin de tour")
                 {
@@ -146,8 +142,8 @@ namespace Risk
                     //}
                     //modele.Joueur_has_Partie.Add(jhp);
                     modele.SaveChanges();
-                    
-                } 
+
+                }
             }
 
             if (jhp.JhP_flag == partie.partie_toJ1)
@@ -204,7 +200,8 @@ namespace Risk
 
         protected void But_fin_de_phase_Click(object sender, EventArgs e)
         {
-            using(thomasEntities3 modele = new thomasEntities3()){
+            using (thomasEntities3 modele = new thomasEntities3())
+            {
 
                 var pu = modele.Partie.FirstOrDefault(p => p.id_partie == partie.id_partie);
                 var jhpu = modele.Joueur_has_Partie.FirstOrDefault(jhu => jhu.id_joueur_has_partie == jhp.id_joueur_has_partie);
@@ -212,21 +209,21 @@ namespace Risk
                 if (partie.phase_partie == 0)
                 {
                     if (jhpu.JhP_flag == pu.partie_toJ1)
-                    {                   
-                            jhpu.JhP_flag = pu.partie_toJ2;
-                                                
+                    {
+                        jhpu.JhP_flag = pu.partie_toJ2;
+
                     }
                     else
-                    {                    
-                            jhpu.JhP_flag = pu.partie_toJ1;
-                            pu.phase_partie = 1;
-                                               
+                    {
+                        jhpu.JhP_flag = pu.partie_toJ1;
+                        pu.phase_partie = 1;
+
                     }
                 }
                 else if (partie.phase_partie == 1)
-                {   
-                        pu.phase_partie = 2;                  
-                    
+                {
+                    pu.phase_partie = 2;
+
                 }
                 else if (partie.phase_partie == 2)
                 {
@@ -238,7 +235,7 @@ namespace Risk
                     jhpu.JhP_flag = partie.partie_toJ2;
                 }
                 modele.SaveChanges();
-            Response.Redirect("partie.aspx");
+                //Response.Redirect("partie.aspx");
             }
         }
 
@@ -269,29 +266,36 @@ namespace Risk
         protected void Button1_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            
-            if (partie.phase_partie==0)
-            {
-                if (jhp.JhP_flag == partie.partie_toJ1)
-                {
-                    string s = btn.ID;
 
-                    btn.CssClass = "j1";
-                    btn.Text = "5";
-                    
+            if (btn.CssClass != "eau")
+            {
+                //btn.Text = "test";
+                if (partie.phase_partie == 0)
+                {
+                    if (jhp.JhP_flag == partie.partie_toJ1)
+                    {
+                        
+
+                        btn.CssClass = "j1";
+                        btn.Text = "5";
+
+                        
+                        
+                    }
+                    if (jhp.JhP_flag == partie.partie_toJ2)
+                    {
+                        btn.CssClass = "j2";
+                        btn.Text = "5";
+                        
+
+                    }
                 }
-                if (jhp.JhP_flag == partie.partie_toJ2)
+                else if (partie.phase_partie == 1)
                 {
-                    btn.CssClass = "j2";
-                    btn.Text = "5";
-                    
-                }                
-            }
-            else if (partie.phase_partie ==1)
-            {
-                if (jhp.JhP_flag == partie.partie_toJ1)
-                {
+                    if (jhp.JhP_flag == partie.partie_toJ1)
+                    {
 
+                    }
                 }
             }
         }

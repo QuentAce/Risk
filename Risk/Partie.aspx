@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="partie.aspx.cs" Inherits="Risk.Partie1" EnableEventValidation="false"%>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="partie.aspx.cs" Inherits="Risk.Partie1" %>
 
 <!DOCTYPE html>
 
@@ -25,7 +25,7 @@
         .j1 { background-color :#FFFF00}
         .j2 {background-color :#FF3399}
         
-        .terrain,.eau {
+        .terrain,.eau,.j1,.j2 {
             width:30px;
             height:30px;
             margin:auto;
@@ -70,7 +70,7 @@
             </table>
         </div>
         <div id="corps">
-
+            
             <table class="jeu">
             <asp:Repeater ID="Repeater1" runat="server" OnItemDataBound="Repeater1_ItemDataBound">
             <ItemTemplate>
@@ -104,6 +104,20 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
+
+
+
+
+        <script>
+
+            function rafraichi()
+            {
+                __doPostBack('<%# UpdatePanel1.ClientID %>', '');
+            }
+
+            setInterval(rafraichi, 3000);
+
+        </script>
     </div>
     </form>
 </body>

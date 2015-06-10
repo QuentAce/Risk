@@ -85,6 +85,12 @@
         <asp:Button ID="Button_ouvrir_monde" runat="server" Text="Ouvrir monde" Width="118px" OnClick="Button_ouvrir_monde_Click" />
         &nbsp;&nbsp;&nbsp;
         <asp:Button ID="Button_lancer_partie" runat="server" Text="Lancer partie" OnClick="Button_lancer_partie_Click" />
+
+        <div>
+        <asp:Panel ID="Panel1" runat="server" Height="606px">
+        </asp:Panel>
+
+    </div>
     </form>
 </body>
 </html>

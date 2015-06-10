@@ -17,8 +17,9 @@ namespace Risk
                 for (int x = 0; x < 20; x++)
                 {
                     Button bouton1 = new Button();
-                    bouton1.ID = "Button_" + x.ToString() + "_" + y.ToString();
-                    bouton1.Text = "test";
+                    bouton1.ID = x.ToString() + "_" + y.ToString();
+                    bouton1.Text = "";
+                    bouton1.BackColor = System.Drawing.Color.GreenYellow;
                     bouton1.Click += bouton1_Click;
                     Panel1.Controls.Add(bouton1);
                 }
@@ -32,7 +33,17 @@ namespace Risk
         void bouton1_Click(object sender, EventArgs e)
         {
             Button bouton = (Button)sender;
-            bouton.BackColor = System.Drawing.Color.Red;
+            //bouton.BackColor = System.Drawing.Color.Red;
+
+            if (bouton.BackColor == System.Drawing.Color.GreenYellow)
+            {
+                bouton.BackColor = System.Drawing.Color.Blue;
+            }
+            else
+            {
+                bouton.BackColor = System.Drawing.Color.GreenYellow;
+            }
+            
         }
     }
 }

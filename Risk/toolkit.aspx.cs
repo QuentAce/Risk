@@ -47,6 +47,8 @@ namespace Risk
             int x_max = int.Parse(TextBox_x_max.Text);
             int y_max = int.Parse(TextBox_y_max.Text);
 
+            //test_map(x_max, y_max);
+
             initialiser_carte_vide(x_max, y_max);
         }
 
@@ -218,6 +220,39 @@ namespace Risk
         protected void Button2_Click(object sender, EventArgs e)
         {
             charger_liste_monde();
+        }
+
+
+        protected void test_map(int x, int y)
+        {
+            for (int y_map = 0; y_map < y; y_map++)
+            {
+                for (int x_map = 0; x_map < x; x_map++)
+                {
+                    Button bouton1 = new Button();
+                    bouton1.ID = x_map.ToString() + "_" + y_map.ToString();
+                    bouton1.Text = "2";
+                    bouton1.BackColor = System.Drawing.Color.Beige;
+                    bouton1.Click += bouton1_Click;
+                    Panel1.Controls.Add(bouton1);
+                }
+                LiteralControl br = new LiteralControl();
+                br.Text = "<br />";
+                Panel1.Controls.Add(br);
+            }
+        }
+        void bouton1_Click(object sender, EventArgs e)
+        {
+            Button bouton = (Button)sender;
+
+            if (bouton.BackColor == System.Drawing.Color.Blue)
+            {
+                bouton.BackColor = System.Drawing.Color.Beige;
+            }
+            else
+            {
+                bouton.BackColor = System.Drawing.Color.Blue;
+            }
         }
     }
 }
